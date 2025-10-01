@@ -5,13 +5,8 @@
     <title>MATRIX: Mask Track Alignment for Interaction-Aware Video Generation</title>
 
     <!-- Favicon references -->
-    <link rel="icon" type="image/png" href=".                <h3>How does MATRIX achieve interaction-aware video generation?</h3>
-                <p>MATRIX leverages advanced mask tracking techniques to maintain object identity and spatial relationships throughout video sequences.
-                    Our framework uses sophisticated alignment algorithms to ensure temporal consistency and realistic interactions between objects.</p>
-                <h3>What makes MATRIX effective for complex interactions?</h3>
-                <p>The key innovation lies in our mask track alignment mechanism that preserves object boundaries and motion patterns while enabling flexible interaction modeling. This approach allows for precise control over how objects interact and move within the generated video sequences.</p>
-                <h3>How does MATRIX handle temporal consistency?</h3>s/matrix_logo.png">
-    <link rel="apple-touch-icon" href="./images/matrix_logo.png">
+    <link rel="icon" type="image/png" href="./images/viral_robot.png">
+    <link rel="apple-touch-icon" href="./images/viral_robot.png">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 
     <meta
@@ -82,9 +77,10 @@
             <nav class="main-nav">
                 <ul class="nav-links">
                     <li><a href="#abstract">Overview</a></li>
-                    <li><a href="#methodology">Methodology</a></li>
-                    <li><a href="#experiments">Experiments</a></li>
-                    <li><a href="#results">Results</a></li>
+                    <li><a href="#pilot-study">Pilot study</a></li>
+                    <li><a href="#framework">Framework</a></li>
+                    <li><a href="#visual-representation-alignment">Methods</a></li>
+                    <li><a href="#ablation-studies">Ablation Studies</a></li>
                     <li><a href="#analysis">Analysis</a></li>
                     <li><a href="#citation">Citation</a></li>
                 </ul>
@@ -97,8 +93,8 @@
             <div class="title-row">
                 <div class="title-flex">
                     <video class="title-video" autoplay muted loop playsinline>
-                        <source src="images/matrix_demo.webm" type="video/webm">
-                        <source src="images/matrix_demo.mp4" type="video/mp4">
+                        <source src="images/robot_alpha.webm" type="video/webm">
+                        <source src="images/moving viral.mp4" type="video/mp4">
                     </video>
                     <div class="title-text-block">
                         <h1 class="title"><span class="gradient-text">MATRIX</span>: Mask Track Alignment<span class="title-break"></span> for Interaction-Aware Video Generation</h1>
@@ -108,61 +104,63 @@
             </div>
             <div class="base-row author-row">
                 <div class="base-col author-col">
-                    <a href="#" target ="_blank" class="author-text">
-                        First Author<sup>1*</sup>
+                    <a href= "https://yoon-heez.github.io/" target ="_blank" class="author-text">
+                        Siyoon Jin<sup>1*</sup>
                     </a>
                 </div>
                 <div class="base-col author-col">
-                    <a href="#" target="_blank" class="author-text">
-                        Second Author<sup>1*</sup>
+                    <a href="https://crepejung00.github.io/" target="_blank" class="author-text">
+                        Seongchan Kim<sup>1*</sup>
                     </a>
                 </div>
                 <div class="base-col author-col">
-                    <a href="#" target="_blank" class="author-text">
-                        Third Author<sup>2</sup>
+                    <a href="https://junwankimm.github.io/" target="_blank" class="author-text">
+                        Jaeho Lee<sup>2*</sup>
                     </a>
                 </div>
                 <div class="base-col author-col">
-                    <a href="#" target="_blank" class="author-text">
-                        Fourth Author<sup>2</sup>
+                    <a href="https://hyungyu-choi.github.io/" target="_blank" class="author-text">
+                        Dahyun Chung<sup>3</sup>
                     </a>
                 </div>
             </div>
             <div class="base-row author-row">
                 <div class="base-col author-col">
-                    <a href="#" target="_blank" class="author-text">
-                        Fifth Author<sup>1</sup>
+                    <a href="https://utl.korea.ac.kr/" target="_blank" class="author-text">
+                        Hyunwook Choi<sup>4</sup>
                     </a>
                 </div>
                 <div class="base-col author-col">
-                    <a href="#" target="_blank" class="author-text">
-                        Sixth Author<sup>1</sup>
+                    <a href="https://pailab.cau.ac.kr/" target="_blank" class="author-text">
+                        Jiyoung Kim<sup>3</sup>
                     </a>
                 </div>
                 <div class="base-col author-col">
-                    <a href="#" target="_blank" class="author-text">
-                        Seventh Author<sup>2</sup>
+                    <a href="https://sunghwanhong.github.io/" target="_blank" class="author-text">
+                        Jisu Nam<sup>5</sup>
                     </a>
                 </div>
                 <div class="base-col author-col">
-                    <a href="#" target="_blank" class="author-text">
-                        Senior Author<sup>1</sup>
+                    <a href="https://cvlab.kaist.ac.kr/" target="_blank" class="author-text">
+                        Seungryong Kim<sup>1</sup>
                     </a>
                 </div>
+            </div>
+
             <div class="base-row author-row">
                 <div class="base-col author-col affiliations">
-                    <sup>1</sup>University A &nbsp;&nbsp; <sup>2</sup>University B
+                    <sup>1</sup>KAIST AI &nbsp;&nbsp; <sup>2</sup>Korea University
                     <br>
                     <sup>*</sup>Co-first authors
                 </div>
             </div>
             <div class="link-labels base-row">
-                <div class="base-col icon-col"><a href="#" target="_blank"
+                <div class="base-col icon-col"><a href="https://arxiv.org/pdf/2509.07979" target="_blank"
                         class="link-block">
                         <i class="fa fas fa-file-text main-icon" style="font-size: 60px"></i>
                         <strong class="link-labels-text">Paper</strong>
                     </a></div>
-                <div class="base-col icon-col"><a href='https://github.com/cvlab-kaist/MATRIX.git' class="link-block">
+                <div class="base-col icon-col"><a href='https://github.com/cvlab-kaist/VIRAL.git' class="link-block">
                         <i class="fa fa-github main-icon" style="font-size: 60px"></i>
                         <strong class="link-labels-text">Code</strong>
                     </a></div>
@@ -178,38 +176,44 @@
     <main class="main-content">
         <div class="container">
             <div class="tldr">
-                <b>TL;DR</b>: MATRIX introduces a novel approach for interaction-aware video generation through mask track alignment, enabling precise control over object interactions and movements in generated videos.
+                <b>TL;DR</b>: VIRAL directly aligns MLLM's visual tokens with pretrained vision model features, preserving fine-grained visual details and boosting vision-centric reasoning beyond text-only supervision.
             </div>
 
             <div id="abstract" class="base-row section">
-                <h2>Introducing MATRIX: Mask Track Alignment for Interaction-Aware Video Generation</h2>
+                <h2>Introducing the VIsual Representation ALignment (VIRAL)</h2>
                 <p class="paragraph">
-                    <Strong>MATRIX (Mask Track Alignment for Interaction-Aware Video Generation)</Strong> is an innovative framework that enables precise control over object interactions in generated videos. By leveraging advanced mask tracking and alignment techniques, MATRIX ensures coherent and realistic object movements while maintaining temporal consistency throughout video sequences.
+                    <Strong>VIsual Representation ALignment (VIRAL)</Strong> is a simple but effective regularization strategy that aligns the internal visual representations of MLLMs with those from pretrained vision foundation models (VFMs). By explicitly supervising intermediate visual tokens with rich VFM features, VIRAL preserves semantically meaningful visual information that would otherwise be discarded under text-only learning.
                 </p>
             </div>
 
             <div class="image-container">
                     <div class="image-content">
-                        <img src="images/matrix_teaser.png" class="img large-image" alt="MATRIX teaser">
+                        <img src="images/teaser.png" class="img large-image" alt="VIRAL teaser">
                     </div>
+
+                    <!-- <p class="image-caption">We propose <strong>VIsual Representation ALignment (VIRAL)</strong> for multi-modal large language models (MLLMs), which introduces an auxiliary regularization objective on visual features to prevent MLLMs from discarding fine-grained visual attributes during training. VIRAL consistently produces more accurate visually grounded responses and yields substantial improvements over standard visual instruction tuning baselines when employing diverse vision towers, including CLIP and SigLIPv2.</p> -->
             </div>
             <div>
                 <p>
-                    <img class="paragraph-image" src="images/matrix_logo.png" alt="MATRIX logo" />
-                    MATRIX introduces a novel framework for interaction-aware video generation that precisely controls object movements and interactions through advanced mask tracking alignment.
+                    <img class="paragraph-image" src="images/virabot_head.png" alt="VIRAL robot" />
+                    VIRAL introduces an auxiliary regularization objective on the visual pathway to prevent MLLMs from discarding detailed attributes during training. 
                 </p>
                 <p>
-                    <img class="paragraph-image" src="images/matrix_logo.png" alt="MATRIX logo" />
-                    Our approach enables realistic video generation with complex object interactions, maintaining temporal consistency and visual quality throughout the generated sequences.
+                    <img class="paragraph-image" src="images/virabot_head.png" alt="VIRAL robot" />
+                    VIRAL, when trained with DINOv2 as the vision foundation model (VFM), consistently produces more accurate visually grounded responses and achieves substantial improvements over standard baselines across diverse vision encoders, including CLIP and SigLIPv2!
                 </p>
             </div>
-            <section id="methodology" class="section">
-                <h2>Methodology</h2>
+
+            
+
+            <section id="pilot-study" class="section">
+                <h2>Pilot study</h2>
                 <div class="image-container">
                     <div class="image-content">
-                        <img src="images/matrix_methodology.png" class="img large-image" alt="MATRIX methodology diagram">
+                        <img src="images/motivations_final.png" class="img large-image" alt="Comparisons diagram">
                     </div>
-                    <p class="image-caption">Overview of the MATRIX framework showing (a) mask extraction and tracking, (b) alignment optimization, (c) interaction modeling, and (d) video generation pipeline.</p>
+                    <p class="image-caption"> (a) baseline visual instruction tuning, (b) re-injecting visual features from the <i>post</i>-projection layer, (c) re-injecting from the <i>pre</i>-projection layer, and (d) the proposed visual representation alignment. </p>
+                    <p class="image-caption">(e) Layer-wise alignment between visual tokens in MLLMs and vision encoder features measured by CKNNA, with shaded regions highlighting middle layers that are especially important for visual understanding. (f) Benchmark performance corresponding to (a–d) </p>
                 </div>
 
                 <h3>Do MLLMs undergo visual information loss?</h3>
@@ -218,7 +222,8 @@
                 <h3>Is preserving visual information beneficial?</h3>
                 <p>Motivated by the observation that internal visual representations of MLLMs diverge from the encoder’s original features, we ask whether re-injecting them could help. We add a residual connection that feeds the input visual features of the language model back into its mid-layers. This preserves alignment with the encoder and yields consistent performance gains on multimodal benchmarks.</p>
                 <h3>Can we compensate visual information with raw vision encoder feature?</h3>
-                <p>Our framework incorporates temporal alignment constraints that ensure smooth transitions and consistent object appearances across frames. The mask tracking component maintains object identity while allowing for natural deformations and movements that occur during interactions.</p>
+                <p>We first tested re-injecting raw vision encoder features into mid-layers via a residual branch, but this degraded performance as the features were not language-aligned and disrupted intermediate representations. 
+                To address this, we introduce a more principled strategy by explicitly aligning intermediate visual representations with frozen encoder features through a Visual Representation Alignment (VRA) loss. <p>This approach yields general improvements, though limitations remain: <strong> <i>encoder features can also transmit their inherent biases</i></strong>, as observed in MMVP.</p>
                 <!-- <div class="image-container">
                     <div class="image-content">
                         <img src="images/motivations_results.png" class="img large-image" alt="Results chart">
@@ -227,8 +232,8 @@
                 </div> -->
             </section>
 
-            <section id="experiments" class="section">
-                <h2>Experiments</h2>
+            <section id="framework" class="section">
+                <h2>VIRAL</h2>
                 <div class="two-col">
                     <div class="col-left">
                         <!-- <p>
@@ -561,21 +566,21 @@
             <section id="conclusion" class="section">
                 <h2>Conclusion</h2>
 
-                <p>In this work, we propose MATRIX, an innovative framework for interaction-aware video generation through mask track alignment. Our approach enables precise control over object interactions and movements while maintaining temporal consistency throughout video sequences. Extensive experiments demonstrate the effectiveness of our method in generating high-quality videos with complex object interactions, establishing new benchmarks in interaction-aware video generation.</p>
+                <p>In this work, we propose VIRAL, a simple yet effective training strategy that aligns the internal visual representations of MLLMs with those from powerful vision foundation models. Our approach preserves fine-grained visual semantics often discarded under text-only supervision, enabling more accurate spatial reasoning and object grounding. Extensive experiments across diverse benchmarks validate the effectiveness and generality of our method, demonstrating that visual representation alignment significantly enhances both performance and training efficiency in multimodal learning.</p>
             </section>
 
             <div class="citation add-top-padding">
                 <h1 id="citation">Citation</h1>
                 <p> If you use this work or find it helpful, please consider citing: </p>
                 <pre id="codecell0">
-    @misc{matrix2025,
-      title={MATRIX: Mask Track Alignment for Interaction-Aware Video Generation}, 
-      author={First Author and Second Author and Third Author and Fourth Author and Fifth Author and Sixth Author and Seventh Author and Senior Author},
+    @misc{yoon2025visualrepresentationalignmentmultimodal,
+      title={Visual Representation Alignment for Multimodal Large Language Models}, 
+      author={Heeji Yoon and Jaewoo Jung and Junwan Kim and Hyungyu Choi and Heeseong Shin and Sangbeom Lim and Honggyu An and Chaehyun Kim and Jisang Han and Donghyun Kim and Chanho Eom and Sunghwan Hong and Seungryong Kim},
       year={2025},
-      eprint={xxxx.xxxxx},
+      eprint={2509.07979},
       archivePrefix={arXiv},
       primaryClass={cs.CV},
-      url={https://arxiv.org/abs/xxxx.xxxxx}}
+      url={https://arxiv.org/abs/2509.07979}}
                 </pre>
             </div>
         </div>
