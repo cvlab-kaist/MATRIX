@@ -76,12 +76,11 @@
         <div class="container">
             <nav class="main-nav">
                 <ul class="nav-links">
-                    <li><a href="#abstract">Overview</a></li>
-                    <li><a href="#pilot-study">Pilot study</a></li>
-                    <li><a href="#framework">Framework</a></li>
-                    <li><a href="#visual-representation-alignment">Methods</a></li>
-                    <li><a href="#ablation-studies">Ablation Studies</a></li>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#dataset">Dataset</a></li>
                     <li><a href="#analysis">Analysis</a></li>
+                    <li><a href="#framework">Framework</a></li>
+                    <li><a href="#results">Results</a></li>
                     <li><a href="#citation">Citation</a></li>
                 </ul>
             </nav>
@@ -102,6 +101,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Author Information -->
             <div class="base-row author-row">
                 <div class="base-col author-col">
                     <a href= "https://yoon-heez.github.io/" target ="_blank" class="author-text">
@@ -146,7 +146,7 @@
                     </a>
                 </div>
             </div>
-
+            <!-- Author Affiliations -->
             <div class="base-row author-row">
                 <div class="base-col author-col affiliations">
                     <sup>1</sup>KAIST AI &nbsp;&nbsp; <sup>2</sup>Korea University
@@ -154,7 +154,8 @@
                     <sup>*</sup>Co-first authors
                 </div>
             </div>
-            <div class="link-labels base-row">
+            <!-- Links -->
+            <div class="link-labels base-row"> 
                 <div class="base-col icon-col"><a href="https://arxiv.org/pdf/2509.07979" target="_blank"
                         class="link-block">
                         <i class="fa fas fa-file-text main-icon" style="font-size: 60px"></i>
@@ -169,44 +170,41 @@
                         <strong class="link-labels-text">Citation</strong>
                     </a></div>
             </div>
-
         </div>
     </div>
 
     <main class="main-content">
         <div class="container">
+            <!-- Contents: TL;DR -->
             <div class="tldr">
-                <b>TL;DR</b>: VIRAL directly aligns MLLM's visual tokens with pretrained vision model features, preserving fine-grained visual details and boosting vision-centric reasoning beyond text-only supervision.
+                <b>TL;DR</b>: MATRIX introduces a lightweight LoRA-based regularization that aligns the key interaction-dominant layers of Video Diffusion Transformers with instance mask tracks using two losses — Semantic Grounding Alignment (SGA) and Semantic Propagation Alignment (SPA) — to greatly improve multi-instance interaction fidelity and temporal consistency. It comes with MATRIX-11K, a large-scale dataset of 11K videos with interaction-aware captions and masks, and InterGenEval, a new evaluation protocol (KISA, SGI, SPI, IF) for measuring interaction awareness in video generation.
             </div>
-
-            <div id="abstract" class="base-row section">
-                <h2>Introducing the VIsual Representation ALignment (VIRAL)</h2>
+            <!-- Contents: Overview -->
+            <div id="overview" class="base-row section">
+                <h2>Introducing the Mask Track Alignment (MATRIX)</h2>
                 <p class="paragraph">
-                    <Strong>VIsual Representation ALignment (VIRAL)</Strong> is a simple but effective regularization strategy that aligns the internal visual representations of MLLMs with those from pretrained vision foundation models (VFMs). By explicitly supervising intermediate visual tokens with rich VFM features, VIRAL preserves semantically meaningful visual information that would otherwise be discarded under text-only learning.
+                    <Strong>Mask Track Alignment (MATRIX)</Strong> is a simple but effective regularization strategy that aligns the internal visual representations of MLLMs with those from pretrained vision foundation models (VFMs). By explicitly supervising intermediate visual tokens with rich VFM features, MATRIX preserves semantically meaningful visual information that would otherwise be discarded under text-only learning.
                 </p>
             </div>
-
             <div class="image-container">
-                    <div class="image-content">
-                        <img src="matrix_images/teaser.png" class="img large-image" alt="VIRAL teaser">
-                    </div>
-
-                    <!-- <p class="image-caption">We propose <strong>VIsual Representation ALignment (VIRAL)</strong> for multi-modal large language models (MLLMs), which introduces an auxiliary regularization objective on visual features to prevent MLLMs from discarding fine-grained visual attributes during training. VIRAL consistently produces more accurate visually grounded responses and yields substantial improvements over standard visual instruction tuning baselines when employing diverse vision towers, including CLIP and SigLIPv2.</p> -->
+                <div class="image-content">
+                    <img src="matrix_images/teaser.png" class="img large-image" alt="MATRIX teaser">
+                </div>
             </div>
             <div>
                 <p>
-                    <img class="paragraph-image" src="matrix_images/head.png" alt="VIRAL robot" />
-                    VIRAL introduces an auxiliary regularization objective on the visual pathway to prevent MLLMs from discarding detailed attributes during training. 
+                    <img class="paragraph-image" src="matrix_images/logo.png" alt="MATRIX robot" />
+                    MATRIX introduces an auxiliary regularization objective on the visual pathway to prevent MLLMs from discarding detailed attributes during training. 
                 </p>
                 <p>
-                    <img class="paragraph-image" src="matrix_images/head.png" alt="VIRAL robot" />
-                    VIRAL, when trained with DINOv2 as the vision foundation model (VFM), consistently produces more accurate visually grounded responses and achieves substantial improvements over standard baselines across diverse vision encoders, including CLIP and SigLIPv2!
+                    <img class="paragraph-image" src="matrix_images/logo.png" alt="MATRIX robot" />
+                    MATRIX, when trained with DINOv2 as the vision foundation model (VFM), consistently produces more accurate visually grounded responses and achieves substantial improvements over standard baselines across diverse vision encoders, including CLIP and SigLIPv2!
                 </p>
             </div>
 
             
 
-            <section id="pilot-study" class="section">
+            <section id="dataset" class="section">
                 <h2>Pilot study</h2>
                 <div class="image-container">
                     <div class="image-content">
@@ -232,7 +230,7 @@
                 </div> -->
             </section>
 
-            <section id="framework" class="section">
+            <section id="analysis" class="section">
                 <h2>VIRAL</h2>
                 <div class="two-col">
                     <div class="col-left">
@@ -261,7 +259,7 @@
                 </div>
             </section>
 
-            <section id="visual-representation-alignment" class="section">
+            <section id="framework" class="section">
                 <h2> Effect of visual representation alignment </h2>
                 <p> VIRAL demonstrates its effectiveness through evaluations on benchmarks covering vision-centric (CV-Bench<sup>2D</sup>, What's Up, and MMVP), hallucination (POPE), and general multimodal tasks (MMStar, MME). Across identical training conditions, 
                     VIRAL consistently surpasses the baseline, with its strongest improvements on fine-grained visual understanding. These gains are achieved by leveraging DINOv2 as the VFM.</p> 
@@ -404,7 +402,7 @@
                 </div>
             </section>
 
-            <section id="ablation-studies" class="section">
+            <section id="results" class="section">
                 <h2>Ablation study on key design components</h2>
 
                 <p>We identify optimal visual features and layers for aligning MLLM representations. We adopt DINOv2 as the default encoder. Layer-wise analysis shows the 16th layer yields the best results, with single-layer alignment outperforming multi-layer targets. Finally, we compare direct feature alignment with relation-based objectives over self-similarity matrices.</p>
@@ -518,50 +516,6 @@
                     <p class="image-caption">We analyze the effects of (i) different vision foundation models (VFMs), (ii) alignment target layers, and (iii) alignment objectives, through evaluation on both vision-centric and general multimodal benchmarks. All experiments are conducted on the LLaVA-1.5-7B baseline.</p>
                 </div> -->
             </section>
-
-            <section id="analysis" class="section">
-                <h2>Analysis</h2>
-
-                <p></p>
-                
-                <div class="slideshow-container">
-                    <div class="slideshow">
-                        <div class="slide">
-                            <img src="images/viral_attention_anlaysis_final.png"
-                                class="comparison-slideshow-image" alt="Attention analysis">
-                            <div class="image-caption">Qualitative comparison on text-to-image attention maps (left) and quantified spatial entropy of attention across layers and heads (right). Applying visual representation alignment encourages model to attend to more contextually important content, yielding a more focused and structured attention pattern.</div>
-                        </div>
-                        
-                        <div class="slide">
-                            <img src="images/viral_training_efficiency_final.png"
-                                class="comparison-slideshow-image" alt="Training efficiency curves">
-                            <div class="image-caption">Performance with and without $\mathcal{L}_\mathrm{VRA}$ evaluated every 1K steps on (a) POPE, (b) CV-Bench$^\mathrm{2D}$ and (c) MMVP. Improved early-stage performance with $\mathcal{L}_\mathrm{VRA}$ indicates that VIRAL facilitates faster convergence.</div>
-                        </div>
-
-                        <div class="slide">
-                            <img src="images/token_permutation_final.png"
-                                class="comparison-slideshow-image" alt="Permutation robustness bar chart">
-                            <div class="image-caption">Number of correct predictions out of 788 spatial reasoning tasks in CV-Bench$^\mathrm{2D}$. Models with $\mathcal{L}_\mathrm{VRA}$ show larger performance drops under random permutation, indicating stronger sensitivity to spatial relationships.</div>
-                        </div>
-                        <div class="slide">
-                            <img src="images/vfm_pca.png"
-                                class="comparison-slideshow-image" alt="Permutation robustness bar chart">
-                            <div class="image-caption">PCA visualizations of 16-th layer visual representations aligned with different VFMs: CLIP, DINOv2, SAM, DAv2, and RADIO.</div>
-                        </div>
-                    </div>
-
-                    <button class="slideshow-nav prev" onclick="changeSlide(-1)">❮</button>
-                    <button class="slideshow-nav next" onclick="changeSlide(1)">❯</button>
-                    
-                    <div class="slideshow-controls">
-                        <button class="play-pause" onclick="togglePlayPause()">
-                            <i class="fa fa-pause"></i>
-                        </button>
-                    </div>
-                </div>
-            </section>
-                
-                
 
             <section id="conclusion" class="section">
                 <h2>Conclusion</h2>
