@@ -177,13 +177,14 @@
         <div class="container">
             <!-- Contents: TL;DR -->
             <div class="tldr">
-                <b>TL;DR</b>: MATRIX introduces a lightweight LoRA-based regularization that aligns the key interaction-dominant layers of Video Diffusion Transformers with multi-instance mask tracks using two losses — Semantic Grounding Alignment (SGA) and Semantic Propagation Alignment (SPA) — to greatly improve multi-instance interaction fidelity and temporal consistency.
+                <b>TL;DR</b>: MATRIX introduces a lightweight LoRA-based regularization that aligns the key interaction-dominant layers of Video Diffusion Transformers with multi-instance mask tracks to improve multi-instance interaction fidelity and temporal consistency.
             </div>
             <!-- Contents: Overview -->
             <div id="overview" class="base-row section">
-                <h2>Introducing the Mask Track Alignment (MATRIX)</h2>
+                <h2>Overview</h2>
                 <p class="paragraph">
-                    <Strong>Mask Track Alignment (MATRIX)</Strong> is a simple but effective regularization strategy that aligns the internal visual representations of MLLMs with those from pretrained vision foundation models (VFMs). By explicitly supervising intermediate visual tokens with rich VFM features, MATRIX preserves semantically meaningful visual information that would otherwise be discarded under text-only learning.
+                    Recent video diffusion models can generate high-quality videos but often fail to correctly represent multi-object interactions — e.g., losing track of who does what to whom or drifting identities over time. MATRIX tackles this by first analyzing how DiTs internally bind text and video tokens, revealing that semantic grounding and temporal propagation of interactions emerge only in a few critical attention layers. 
+                    It then fine-tunes just those layers using SGA + SPA losses aligned with multi-instance mask tracks, enabling efficient improvement without retraining the whole model. To support both analysis and fair benchmarking, the authors release MATRIX-11K, a large dataset of interaction-rich videos, and InterGenEval, a new protocol to measure interaction fidelity beyond standard quality metrics.
                 </p>
             </div>
             <div class="image-container">
@@ -194,52 +195,49 @@
             <div>
                 <p>
                     <img class="paragraph-image" src="matrix_images/logo.png" alt="MATRIX robot" />
-                    MATRIX introduces an auxiliary regularization objective on the visual pathway to prevent MLLMs from discarding detailed attributes during training. 
+                    MATRIX-11K Dataset — 11K videos with interaction-aware captions and instance-level mask tracks.
                 </p>
                 <p>
                     <img class="paragraph-image" src="matrix_images/logo.png" alt="MATRIX robot" />
-                    MATRIX, when trained with DINOv2 as the vision foundation model (VFM), consistently produces more accurate visually grounded responses and achieves substantial improvements over standard baselines across diverse vision encoders, including CLIP and SigLIPv2!
+                    First systematic analysis of how Video DiTs encode semantic grounding & propagation, identifying interaction-dominant layers.
+                </p>
+                <p>
+                    <img class="paragraph-image" src="matrix_images/logo.png" alt="MATRIX robot" />
+                    MATRIX Framework — lightweight LoRA-based tuning with SGA & SPA losses applied selectively to improve interaction fidelity and temporal consistency.
+                </p>
+                <p>
+                    <img class="paragraph-image" src="matrix_images/logo.png" alt="MATRIX robot" />
+                    InterGenEval Protocol — new metrics (KISA, SGI, SPI, IF) for interaction-aware video generation evaluation.
+                </p>
+                <p>
+                    <img class="paragraph-image" src="matrix_images/logo.png" alt="MATRIX robot" />
+                    State-of-the-art performance — significant interaction fidelity gains over CogVideoX, Open-Sora, and TaVid while maintaining video quality.
                 </p>
             </div>
-
-            
-
+            <!-- Contents: Dataset -->
             <section id="dataset" class="section">
-                <h2>Pilot study</h2>
+                <h2>Dataset</h2>
                 <div class="image-container">
                     <div class="image-content">
-                        <img src="images/motivations_final.png" class="img large-image" alt="Comparisons diagram">
+                        <img src="matrix_images/fig_data_pipeline.png" class="img large-image" alt="Comparisons diagram">
                     </div>
-                    <p class="image-caption"> (a) baseline visual instruction tuning, (b) re-injecting visual features from the <i>post</i>-projection layer, (c) re-injecting from the <i>pre</i>-projection layer, and (d) the proposed visual representation alignment. </p>
                     <p class="image-caption">(e) Layer-wise alignment between visual tokens in MLLMs and vision encoder features measured by CKNNA, with shaded regions highlighting middle layers that are especially important for visual understanding. (f) Benchmark performance corresponding to (a–d) </p>
                 </div>
 
-                <h3>Do MLLMs undergo visual information loss?</h3>
+                <!-- <h3>Do MLLMs undergo visual information loss?</h3>
                 <p>MLLMs are trained with text-only supervision, causing their visual features to drift from the encoder’s rich representations.
                     We measure this with CKNNA and observe a sharp drop in similarity to CLIP features across layers.</p>
                 <h3>Is preserving visual information beneficial?</h3>
                 <p>Motivated by the observation that internal visual representations of MLLMs diverge from the encoder’s original features, we ask whether re-injecting them could help. We add a residual connection that feeds the input visual features of the language model back into its mid-layers. This preserves alignment with the encoder and yields consistent performance gains on multimodal benchmarks.</p>
                 <h3>Can we compensate visual information with raw vision encoder feature?</h3>
                 <p>We first tested re-injecting raw vision encoder features into mid-layers via a residual branch, but this degraded performance as the features were not language-aligned and disrupted intermediate representations. 
-                To address this, we introduce a more principled strategy by explicitly aligning intermediate visual representations with frozen encoder features through a Visual Representation Alignment (VRA) loss. <p>This approach yields general improvements, though limitations remain: <strong> <i>encoder features can also transmit their inherent biases</i></strong>, as observed in MMVP.</p>
-                <!-- <div class="image-container">
-                    <div class="image-content">
-                        <img src="images/motivations_results.png" class="img large-image" alt="Results chart">
-                    </div>
-                    <p class="image-caption">(d): Layer-wise alignment between visual tokens in MLLMs and vision encoder features measured by CKNNA, with shaded regions denoting middle layers that are especially important for visual understanding. (e): Benchmark performance corresponding to (a-c) </p>
-                </div> -->
+                To address this, we introduce a more principled strategy by explicitly aligning intermediate visual representations with frozen encoder features through a Visual Representation Alignment (VRA) loss. <p>This approach yields general improvements, though limitations remain: <strong> <i>encoder features can also transmit their inherent biases</i></strong>, as observed in MMVP.</p> -->
             </section>
-
+            <!-- Contents: Analysis -->
             <section id="analysis" class="section">
-                <h2>VIRAL</h2>
+                <h2>Analysis</h2>
                 <div class="two-col">
                     <div class="col-left">
-                        <!-- <p>
-                        We freeze a pretrained Vision Foundation Model (VFM) $\mathcal{E}(\cdot)$ and treat its intermediate representation as a stable target $\mathbf{y} = \mathcal{E}(I)$. For each image $I$, the MLLM produces intermediate visual tokens $\mathbf{e}^\mathrm{img}_{\ell}$; a projection MLP $P_{\pi}(\cdot)$ maps them into the VFM feature space. 
-                        </p>
-                        <p>
-                            We minimize a cosine-similarity based alignment loss $\mathcal{L}_{\mathrm{VRA}} = -\tfrac{1}{N}\sum_{i=1}^{N} \operatorname{sim}(\mathbf{y}_i, P_{\pi}(\mathbf{e}^{\mathrm{img}}_{i,\ell}))$, encouraging retention of fine-grained semantics that would otherwise collapse under pure instruction tuning. The overall objective combines texture generation loss $\mathcal{L}_{\mathrm{LM}}$ with the proposed VRA loss $\mathcal{L}_{\mathrm{VRA}}$, improving spatial reasoning and grounding without degrading language modeling quality.
-                        </p> -->
                         <p>
                         <h3>What should serve as the alignment target?</h3>
                         </p>
@@ -252,24 +250,17 @@
                     </div>
                     <div class="col-right img">
                         <div class="image-container">
-                            <img src="images/viral_architecture_hd.png" class="image-item img large-image z-depth-1" alt="VIRAL framework illustration">
+                            <img src="matrix_images/viral_architecture_hd.png" class="image-item img large-image z-depth-1" alt="VIRAL framework illustration">
                             <p class="image-caption">Building upon our findings in visual representation alignment, we align visual pathway representation from MLLMs to strong, informative representations from VFMs to improve the vision understanding performance of MLLMs. </p>
                         </div>
                     </div>
                 </div>
             </section>
-
+            <!-- Contents: Framework -->
             <section id="framework" class="section">
-                <h2> Effect of visual representation alignment </h2>
+                <h2>Framework</h2>
                 <p> VIRAL demonstrates its effectiveness through evaluations on benchmarks covering vision-centric (CV-Bench<sup>2D</sup>, What's Up, and MMVP), hallucination (POPE), and general multimodal tasks (MMStar, MME). Across identical training conditions, 
                     VIRAL consistently surpasses the baseline, with its strongest improvements on fine-grained visual understanding. These gains are achieved by leveraging DINOv2 as the VFM.</p> 
-                <!-- <p>Our method consistently boosts MLLM performance on vision-centric tasks by aligning intermediate visual features with a strong vision encoder. Gains persist even with SigLIPv2, showing that regularizing visual representations benefits MLLMs beyond compensating for contrastive pretraining limits.</p> -->
-                
-                <!-- <div class="image-container">
-                    <img src="images/viral_alignment_table.png" class="img medium-image" alt="Alignment table">
-                    <p class="image-caption">We report results of models trained with and without $\mathcal{L}_{\text{VRA}}$ across different vision encoders, evaluated on both vision-centric and general multimodal benchmarks. $\mathcal{L}_{\text{VRA}}$ consistently improves performance regardless of the encoder.</p>
-                </div> -->
-
                 <h3>Generally applicable to MLLMs across diverse vision encoders.</h3>
                 <p>Our method consistently boosts MLLM performance on vision-centric tasks by aligning intermediate visual features with a strong vision encoder. Gains persist even with SigLIPv2, showing that regularizing visual representations benefits MLLMs beyond compensating for contrastive pretraining limits.</p>
                 <div class="table-container">
@@ -397,13 +388,13 @@
                 <h3>Key Improvements</h3>
                 <p>With VIRAL, performance on vision-centric tasks like counting and spatial reasoning improves significantly, outperforming LLaVA-7B-1.5 on challenging visual questions.</p>
                 <div class="image-container">
-                    <img src="images/viral_qual_hd.png" class="img large-image" alt="Qualitative examples">
+                    <img src="matrix_images/viral_qual_hd.png" class="img large-image" alt="Qualitative examples">
                     <p class="image-caption">The left part presents PCA visualizations of intermediate representations, demonstrating that VIRAL yields more structured, semantically meaningful visual embeddings. The right part illustrates instance counting and spatial relation tasks, highlighting scenarios where VIRAL correctly answers questions while the baseline fails.</p>
                 </div>
             </section>
-
+            <!-- Contents: Results -->
             <section id="results" class="section">
-                <h2>Ablation study on key design components</h2>
+                <h2>Results</h2>
 
                 <p>We identify optimal visual features and layers for aligning MLLM representations. We adopt DINOv2 as the default encoder. Layer-wise analysis shows the 16th layer yields the best results, with single-layer alignment outperforming multi-layer targets. Finally, we compare direct feature alignment with relation-based objectives over self-similarity matrices.</p>
                 <div class="table-container">
@@ -510,19 +501,14 @@
                     </table>
                     <p class="image-caption">Ablation results across VFMs, layers, and objectives. Consistent gains are observed with VIRAL regularization.</p>
                 </div>
-                <!-- </div> -->
-                <!-- <div class="image-container">
-                    <img src="images/viral_ablation_study_final.png" class="img medium-image" alt="Ablation study charts">
-                    <p class="image-caption">We analyze the effects of (i) different vision foundation models (VFMs), (ii) alignment target layers, and (iii) alignment objectives, through evaluation on both vision-centric and general multimodal benchmarks. All experiments are conducted on the LLaVA-1.5-7B baseline.</p>
-                </div> -->
             </section>
-
+            <!-- Contents: Conclusion -->
             <section id="conclusion" class="section">
                 <h2>Conclusion</h2>
 
                 <p>In this work, we propose VIRAL, a simple yet effective training strategy that aligns the internal visual representations of MLLMs with those from powerful vision foundation models. Our approach preserves fine-grained visual semantics often discarded under text-only supervision, enabling more accurate spatial reasoning and object grounding. Extensive experiments across diverse benchmarks validate the effectiveness and generality of our method, demonstrating that visual representation alignment significantly enhances both performance and training efficiency in multimodal learning.</p>
             </section>
-
+            <!-- Contents: Citation -->
             <div class="citation add-top-padding">
                 <h1 id="citation">Citation</h1>
                 <p> If you use this work or find it helpful, please consider citing: </p>
