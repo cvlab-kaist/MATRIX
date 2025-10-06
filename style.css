@@ -1134,6 +1134,12 @@ pre {
   max-height: 100%;         /* 화면 높이 대비 제한 */
 }
 
+#results .slideshow .caption::before {
+  content: "Text Prompt: ";
+  font-weight:700;
+  margin-right:.35em;
+}
+
 @media (max-width: 640px) {
   #results .slideshow video { max-height: 40vh; }
 }
@@ -1164,6 +1170,6 @@ pre {
   font-weight: 800; !important
   text-underline-offset: 3px;     /* 텍스트와의 간격 */
   text-decoration-thickness: 2px; /* 두께 */
-  text-decoration-color: currentColor; /* 색 바꾸려면 원하는 색 */
+  text-decoration-color: var(--accent-color); /* 색 바꾸려면 원하는 색 */ !important
   /* text-decoration-style: dashed;  점선/이중선은 dashed/dotted/double */
 }
