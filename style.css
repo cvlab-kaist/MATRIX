@@ -1150,3 +1150,20 @@ pre {
   z-index:10; background:rgba(0,0,0,.5); color:#fff; border:0;
   padding:8px 10px; border-radius:9999px; cursor:pointer;
 }
+
+.advantages-table td.second{
+  text-decoration: underline;
+  text-underline-offset: 3px;     /* 텍스트와의 간격 */
+  text-decoration-thickness: 2px; /* 두께 */
+  text-decoration-color: currentColor; /* 색 바꾸려면 원하는 색 */
+  /* text-decoration-style: dashed;  점선/이중선은 dashed/dotted/double */
+}
+
+.advantages-table td.first{
+  /* text-decoration: bold; */
+  font-weight: 800; !important
+  text-underline-offset: 3px;     /* 텍스트와의 간격 */
+  text-decoration-thickness: 2px; /* 두께 */
+  text-decoration-color: currentColor; /* 색 바꾸려면 원하는 색 */
+  /* text-decoration-style: dashed;  점선/이중선은 dashed/dotted/double */
+}

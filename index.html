@@ -80,6 +80,7 @@
                     <li><a href="#dataset">Dataset</a></li>
                     <li><a href="#analysis">Analysis</a></li>
                     <li><a href="#framework">Framework</a></li>
+                    <li><a href="#evaluation">Evaluation</a></li>
                     <li><a href="#results">Results</a></li>
                     <li><a href="#citation">Citation</a></li>
                 </ul>
@@ -275,19 +276,6 @@
                         <br>
                         (b) <strong>Dominant layers</strong> : the influential layers whose mean AAS clearly separates successes from failures. </p>
                 </div>
-                <div class="two-col">
-                    <div class="col-left">
-                        <p>
-                        <h3>What should serve as the alignment target?</h3>
-                        </p>
-                        <p>
-                        While aligning multimodal models with their own encoder features preserves some visual cues, it is fundamentally constrained by the encoder’s representational capacity. To overcome this limitation, we leverage stronger vision foundation models (VFMs) as teachers, providing richer, vision-centric targets.
-                        </p>
-                        <p>
-                        Building on this insight, we introduce <strong><i>MATRIX</i></strong>, which aligns attentions in interaction-dominant layers from video DiTs with instance mask tracks, 
-                        </p>
-                    </div>
-                </div>
             </section>
             <!-- Contents: Framework -->
             <section id="framework" class="section">
@@ -300,21 +288,13 @@
                     <p class="image-caption"> </p> 
                 </div>
                 
-                <!-- <h3>Generally applicable to MLLMs across diverse vision encoders.</h3>
-                <p>Our method consistently boosts MLLM performance on vision-centric tasks by aligning intermediate visual features with a strong vision encoder. Gains persist even with SigLIPv2, showing that regularizing visual representations benefits MLLMs beyond compensating for contrastive pretraining limits.</p>
-                
-                <h3>Generally applicable to MLLMs across model scales and LLM backbones.</h3>
-                <p>Experiments with Qwen2.5-7B and a scaled-up Vicuna-1.5-13B show that VIRAL follows a scaling trend and generalizes across different LLM backbones.</p>
-            
-                
-                <h3>Key Improvements</h3>
-                <p>With VIRAL, performance on vision-centric tasks like counting and spatial reasoning improves significantly, outperforming LLaVA-7B-1.5 on challenging visual questions.</p>
-                <div class="image-container">
-                    <img src="matrix_images/viral_qual_hd.png" class="img large-image" alt="Qualitative examples">
-                    <p class="image-caption">The left part presents PCA visualizations of intermediate representations, demonstrating that VIRAL yields more structured, semantically meaningful visual embeddings. The right part illustrates instance counting and spatial relation tasks, highlighting scenarios where VIRAL correctly answers questions while the baseline fails.</p>
-                </div> -->
             </section>
             <!-- Contents: Results -->
+            <section id="evaluation" class="section">
+                <h2>InterGenEval</h2>
+
+            </section>
+
             <section id="results" class="section">
                 <h2>Results</h2>
                 <h3>Qualitative Comparisons</h3>
@@ -327,7 +307,133 @@
                       </button>
                 </div>
 
-                <h3>Quantitative Comparisons</h3>                
+                <h3>Quantitative Comparisons</h3>     
+                <div class="table-container">
+                    <div class="table-wrap">
+                        <table class="advantages-table">
+                          <!-- <caption>InterGenEval / Human Fidelity / Video Quality</caption> -->
+                          <thead>
+                            <tr>
+                              <th rowspan="2" class="left">Methods</th>
+                              <th colspan="3">InterGenEval</th>
+                              <th colspan="1">Human Fidelity</th>
+                              <th colspan="2">Video Quality</th>
+                            </tr>
+                            <tr>
+                              <th>KISA <span class="up">↑</span></th>
+                              <th>SGI <span class="up">↑</span></th>
+                              <th>IF <span class="up">↑</span></th>
+                              <th>HA <span class="up">↑</span></th>
+                              <th>MS <span class="up">↑</span></th>
+                              <th>IQ <span class="up">↑</span></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td class="left">
+                                CogVideoX-2B-I2V
+                              </td>
+                              <td>0.420</td><td>0.470</td><td>0.445</td>
+                              <td class="second">0.937</td><td class="second">0.993</td><td class="second">69.69</td>
+                            </tr>
+                            <tr>
+                              <td class="left">
+                                CogVideoX-5B-I2V
+                              </td>
+                              <td>0.406</td><td>0.491</td><td>0.449</td>
+                              <td>0.936</td><td>0.987</td><td>69.66</td>
+                            </tr>
+                            <tr>
+                              <td class="left">
+                                Open-Sora-11B-I2V
+                              </td>
+                              <td>0.453</td><td>0.508</td><td>0.480</td>
+                              <td>0.891</td><td>0.992</td><td>63.32</td>
+                            </tr>
+                            <tr>
+                              <td class="left">
+                                TaVid
+                              </td>
+                              <td class="second">0.465</td><td class="second">0.522</td><td class="second">0.494</td>
+                              <td>0.917</td><td>0.991</td><td>68.90</td>
+                            </tr>
+                            <tr class="ours">
+                              <td class="left first"><strong>MATRIX (Ours)</strong> <span class="muted"></span></td>
+                              <td class="first"><strong>0.546</strong></td><td><strong>0.641</strong></td><td><strong>0.593</strong></td>
+                              <td><strong>0.954</strong></td><td><strong>0.994</strong></td><td><strong>69.73</strong></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                <h3>Ablation Studies</h3>
+                <div class="table-container">
+                    <div class="table-wrap">
+                        <table class="advantages-table" id="abl1">
+                        <thead>
+                            <tr>
+                            <th rowspan="2" class="roman sep"> </th>
+                            <th rowspan="2" class="left">Methods</th>
+                            <th colspan="3" class="sep">InterGenEval</th>
+                            <th colspan="1" class="sep">Human Fidelity</th>
+                            <th colspan="2" class="sep">Video Quality</th>
+                            </tr>
+                            <tr>
+                            <th>KISA ↑</th>
+                            <th>SGI ↑</th>
+                            <th>IF ↑</th>
+                            <th>HA ↑</th>
+                            <th>MS ↑</th>
+                            <th>IQ ↑</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="thick-top">
+                            <td class="roman sep">(I)</td>
+                            <td class="left">Baseline (CogVideoX-5B-I2V)</td>
+                            <td>0.406</td><td>0.491</td><td>0.449</td>
+                            <td>0.936</td><td>0.987</td><td>69.66</td>
+                            </tr>
+                            <tr class="thick-mid">
+                            <td class="roman sep">(II)</td>
+                            <td class="left">TaVid </td>
+                            <td>0.465</td><td>0.522</td><td>0.494</td>
+                            <td>0.917</td><td>0.991</td><td>68.90</td>
+                            </tr>
+                            <tr>
+                            <td class="roman sep">(III)</td>
+                            <td class="left">(I) + LoRA w/o layer selection</td>
+                            <td>0.445</td><td>0.526</td><td>0.486</td>
+                            <td>0.940</td><td>0.994</td><td>69.77</td>
+                            </tr>
+                            <tr>
+                            <td class="roman sep">(IV)</td>
+                            <td class="left">(I) + LoRA w/ layer selection</td>
+                            <td>0.490</td><td>0.594</td><td>0.542</td>
+                            <td>0.950</td><td>0.994</td><td>68.97</td>
+                            </tr>
+                            <tr>
+                            <td class="roman sep">(V)</td>
+                            <td class="left">(IV) + SPA loss</td>
+                            <td>0.451</td><td>0.540</td><td>0.496</td>
+                            <td>0.937</td><td>0.995</td><td>70.26</td>
+                            </tr>
+                            <tr>
+                            <td class="roman sep">(VI)</td>
+                            <td class="left">(IV) + SGA loss</td>
+                            <td>0.509</td><td>0.592</td><td>0.550</td>
+                            <td>0.952</td><td>0.994</td><td>69.62</td>
+                            </tr>
+                            <tr class="ours thick-top thick-bottom">
+                            <td class="roman sep">(VII)</td>
+                            <td class="left"> <strong>(IV) + SPA loss + SGA loss (Ours)</strong></td>
+                            <td class="first">0.546</td><td>0.641</td><td>0.593</td>
+                            <td>0.954</td><td>0.994</td><td>69.73</td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
+                    </div>            
             </section>
             <!-- Contents: Conclusion -->
             <section id="conclusion" class="section">
@@ -348,7 +454,7 @@
 
     <footer class="site-footer">
         <div class="container">
-            <p class="credit">Credit: The design of this project page is inspired by previous academic project pages, such as <a href="https://llm-grounded-diffusion.github.io/" target="_blank">LLM-grounded Diffusion</a> and <a href="https://describe-anything.github.io/" target="_blank">Describe-anything</a>.</p>
+            <p class="credit">Credit: The design of this project page is inspired by previous academic project pages, such as <a href="https://llm-grounded-diffusion.github.io/" target="_blank">LLM-grounded Diffusion</a>, <a href="https://describe-anything.github.io/" target="_blank">Describe-anything</a> and <a href="https://cvlab-kaist.github.io/VIRAL" target="_blank">VIRAL</a> .</p>
         </div>
     </footer>
 
@@ -368,35 +474,52 @@
             text.textContent = 'Click to unmute';
         }
     }
+    const captions = {
+        "000": "At a kitchen counter, a student in a white shirt places a notebook on a wooden table. Cups and plates are scattered nearby, and sunlight comes in through the window. The action demonstrates placing the notebook on the flat surface.",
+        "001": "A man in a white t-shirt lifts a large box from the ground near a delivery truck on a narrow street.",
+        "002": "A woman in a red coat pushes a stroller along a park path with fallen leaves scattered around. Nearby, a child in a green hoodie jumps with excitement on the grassy field.",
+        "003": "Two boys are pushing each other playfully on a grassy field, while a dog wearing a blue harness is running in circles nearby.",
+        "004": "A girl in a yellow raincoat is patting another girl's shoulder in front of a school gate, while a boy behind them is skipping along the sidewalk.",
+        "005": "A girl pushes another girl on a tire swing at a park, while a man in the background is shaking hands with a boy near the picnic tables.",
+        "006": "A man walking past with yellow towel wipes the front panel or windshield of the red SUV.",
+        "007": "The woman in the wide-brimmed hat raises her silver travel mug to take a sip.",
+        "008": "The man in a pink suit picks up the red Coca-Cola can and takes a sip from it.",
+        "009": "The man with a sushi t-shirt puts the bitten donut into his mouth to eat it.",
+        "010": "The man in a blue shirt feeds a strawberry to the woman in a white chef coat.",
+        "011": "The woman in a white dress cuts the wedding cake with a knife she's holding."
+    };
+
     document.querySelectorAll('.slideshow[data-range]').forEach(slideshow => {
-        if (slideshow.querySelector('.slide')) return; // 이미 있으면 스킵
+    const [startStr, endStr] = slideshow.dataset.range.split('-').map(s => s.trim());
+    const pad = Math.max(startStr.length, endStr.length);
+    const start = parseInt(startStr, 10), end = parseInt(endStr, 10);
+    const dir = (slideshow.dataset.dir || '').replace(/\/?$/, '/');
+    const ext = (slideshow.dataset.ext || 'mp4').replace(/^\./, '');
 
-        const [startStr, endStr] = slideshow.dataset.range.split('-').map(s => s.trim());
-        const pad = Math.max(startStr.length, endStr.length);
-        const start = parseInt(startStr, 10);
-        const end   = parseInt(endStr, 10);
-        const dir   = (slideshow.dataset.dir || '').replace(/\/?$/, '/'); // 끝에 / 보장
-        const ext   = (slideshow.dataset.ext || 'mp4').replace(/^\./, '');
+    for (let i = start; i <= end; i++) {
+        const id = String(i).padStart(pad, '0');
 
-        for (let i = start; i <= end; i++) {
-            const id = String(i).padStart(pad, '0'); // 000, 001, ... 011
-            const fig = document.createElement('figure');
-            fig.className = 'slide';
-            if (i === start) fig.classList.add('active');
+        const fig = document.createElement('figure');
+        fig.className = 'slide';
+        if (i === start) fig.classList.add('active');
 
-            const video = document.createElement('video');
-            video.className = 'video';
-            video.autoplay = true; video.muted = true; video.loop = true; video.playsInline = true;
-            video.preload = 'metadata';
+        const video = document.createElement('video');
+        video.className = 'video';
+        video.autoplay = true; video.muted = true; video.loop = true; video.playsInline = true;
 
-            const src = document.createElement('source');
-            src.src = `${dir}${id}.${ext}`;
-            src.type = `video/${ext}`;
+        const source = document.createElement('source');
+        source.src = `${dir}${id}.${ext}`;
+        source.type = `video/${ext}`;
+        video.appendChild(source);
 
-            video.appendChild(src);
-            fig.appendChild(video);
-            slideshow.appendChild(fig);
-        }
+        const cap = document.createElement('figcaption');
+        cap.className = 'caption';
+        cap.textContent = captions[id] || `[${id}]`;
+
+        fig.appendChild(video);
+        fig.appendChild(cap);
+        slideshow.appendChild(fig);
+    }
     });
     document.addEventListener('DOMContentLoaded', function() {
         const videos = document.querySelectorAll('video');
@@ -457,6 +580,7 @@
 
         // Initialize this slideshow
         showSlide(0);
+        stopAutoplay();
         // startAutoplay();
 
         // Add event listeners
