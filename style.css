@@ -1079,3 +1079,28 @@ pre {
 .bold-text {
     font-weight: 800;
 }
+
+#dataset .slideshow-container { max-width: 1100px; margin: 24px auto; }
+#dataset .slideshow {
+  position: relative;
+  width: 100%;
+  /* 원하는 비율로 고정: 16:9(기본). 4:3이면 4/3로 바꾸기 */
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+}
+#dataset .slide { display: none; margin: 0; }
+#dataset .slide.active { display: flex; align-items: center; justify-content: center; }
+
+
+#dataset .slideshow img {
+  width: auto;              /* 강제 100% 해제 */
+  height: auto;
+          /* 컨테이너를 넘지 않게 */
+  max-height: 100%;         /* 화면 높이 대비 제한 */
+  object-fit: contain;      /* 남는 공간은 여백 처리 */
+}
+
+@media (max-width: 640px) {
+  #dataset .slideshow img { max-height: 52vh; }
+}

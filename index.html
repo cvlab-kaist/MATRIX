@@ -225,25 +225,57 @@
             <!-- Contents: Dataset -->
             <section id="dataset" class="section">
                 <h2>Dataset</h2>
+                
                 <div class="image-container">
                     <div class="image-content">
-                        <img src="images/fig_data_pipeline.png" class="img large-image" alt="Comparisons diagram">
+                        <img src="images/fig_data_pipeline.png" class="img large-image" alt="MATRIX Analysis illustration">
                     </div>
-                    <p class="image-caption">(e) Layer-wise alignment between visual tokens in MLLMs and vision encoder features measured by CKNNA, with shaded regions highlighting middle layers that are especially important for visual understanding. (f) Benchmark performance corresponding to (a–d) </p>
+                    <p class="image-caption">  <strong>Top</strong> : An LLM (a) identifies interaction triplets, (b) filters them using Dynamism and Contactness, and (c) extracts per-ID appearance descriptions. 
+                    <strong>Bottom</strong> : A VLM then verifies candidate to select an anchor frame, from which SAM2 propagates masks to produce instance mask tracks.  </p>
                 </div>
-
-                <!-- <h3>Do MLLMs undergo visual information loss?</h3>
-                <p>MLLMs are trained with text-only supervision, causing their visual features to drift from the encoder’s rich representations.
-                    We measure this with CKNNA and observe a sharp drop in similarity to CLIP features across layers.</p>
-                <h3>Is preserving visual information beneficial?</h3>
-                <p>Motivated by the observation that internal visual representations of MLLMs diverge from the encoder’s original features, we ask whether re-injecting them could help. We add a residual connection that feeds the input visual features of the language model back into its mid-layers. This preserves alignment with the encoder and yields consistent performance gains on multimodal benchmarks.</p>
-                <h3>Can we compensate visual information with raw vision encoder feature?</h3>
-                <p>We first tested re-injecting raw vision encoder features into mid-layers via a residual branch, but this degraded performance as the features were not language-aligned and disrupted intermediate representations. 
-                To address this, we introduce a more principled strategy by explicitly aligning intermediate visual representations with frozen encoder features through a Visual Representation Alignment (VRA) loss. <p>This approach yields general improvements, though limitations remain: <strong> <i>encoder features can also transmit their inherent biases</i></strong>, as observed in MMVP.</p> -->
+                
+                <div class="slideshow-container">
+                    <div class="slideshow">
+                        <figure class="slide">
+                            <img src="images/dataset_example.png"
+                                    alt=""
+                                    data-fullsrc="images/dataset_example.png">
+                    
+                            <figurecaption>
+                                Dataset example.
+                            </figurecaption>
+                        </figure>
+                        <figure class="slide">
+                            <img src="images/dataset_example2.png"
+                                    alt=""
+                                    data-fullsrc="images/dataset_example2.png">
+                    
+                            <figurecaption>
+                                Dataset example.
+                            </figurecaption>
+                        </figure>
+                    </div>
+                  
+                      
+                    
+                    <button class="slideshow-nav prev" aria-label="Previous slide" title="Previous">&#10094;</button>
+                    <button class="slideshow-nav next" aria-label="Next slide" title="Next">&#10095;</button>
+                    <!-- <button class="play-pause" aria-label="Pause autoplay" title="Pause autoplay"> -->
+                      <!-- <i class="fa fa-pause"></i>
+                    </button> -->
+                </div>
             </section>
             <!-- Contents: Analysis -->
             <section id="analysis" class="section">
                 <h2>Analysis</h2>
+                <div class="image-container">
+                    <div class="image-content">
+                        <img src="images/fig_analysis_graph.png" class="img large-image" alt="Comparisons diagram">
+                    </div>
+                    <p class="image-caption"> (a) <strong>Influential layers</strong> : layers with high AAS that rank in the Top-10 for many videos. 
+                        <br>
+                        (b) <strong>Dominant layers</strong> : the influential layers whose mean AAS clearly separates successes from failures. </p>
+                </div>
                 <div class="two-col">
                     <div class="col-left">
                         <p>
@@ -256,279 +288,52 @@
                         Building on this insight, we introduce <strong><i>VIRAL</i></strong>, which aligns intermediate MLLM representations to features from pretrained VFMs, thereby preserving more informative visual semantics than those available from the input encoder alone.
                         </p>
                     </div>
-                    <div class="col-right img">
-                        <div class="image-container">
-                            <img src="matrix_images/viral_architecture_hd.png" class="image-item img large-image z-depth-1" alt="VIRAL framework illustration">
-                            <p class="image-caption">Building upon our findings in visual representation alignment, we align visual pathway representation from MLLMs to strong, informative representations from VFMs to improve the vision understanding performance of MLLMs. </p>
-                        </div>
-                    </div>
                 </div>
             </section>
             <!-- Contents: Framework -->
             <section id="framework" class="section">
                 <h2>Framework</h2>
-                <p> VIRAL demonstrates its effectiveness through evaluations on benchmarks covering vision-centric (CV-Bench<sup>2D</sup>, What's Up, and MMVP), hallucination (POPE), and general multimodal tasks (MMStar, MME). Across identical training conditions, 
-                    VIRAL consistently surpasses the baseline, with its strongest improvements on fine-grained visual understanding. These gains are achieved by leveraging DINOv2 as the VFM.</p> 
-                <h3>Generally applicable to MLLMs across diverse vision encoders.</h3>
+                <p>Motivated by our analysis, MATRIX introduces Semantic Grounding Alignment (SGA) and Semantic Propagation Alignment (SPA) losses that directly align attention with ground-truth mask tracks.</p> 
+                <div class="image-container">
+                    <div class="image-content">
+                        <img src="images/fig_framework.png" class="img large-image" alt="MATRIX Framework illustration">
+                    </div>
+                    <p class="image-caption"> </p> 
+                </div>
+                
+                <!-- <h3>Generally applicable to MLLMs across diverse vision encoders.</h3>
                 <p>Our method consistently boosts MLLM performance on vision-centric tasks by aligning intermediate visual features with a strong vision encoder. Gains persist even with SigLIPv2, showing that regularizing visual representations benefits MLLMs beyond compensating for contrastive pretraining limits.</p>
-                <div class="table-container">
-                    <table class="advantages-table">
-                        <thead>
-                            <tr>
-                                <th class="model-col">Language Model</th>
-                                <th class="model-col">Vision Encoder</th>
-                                <th class="vra-col">VRA Loss</th>
-                                <th>CV-Bench<sup>2D</sup></th>
-                                <th>MMVP</th>
-                                <th>What's Up</th>
-                                <th>POPE</th>
-                                <th>MMStar</th>
-                                <th>MME</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="model-col" rowspan="4"><strong>Vicuna-7B-1.5</strong></td>
-                                <td class="model-col" rowspan="2">CLIP</td>
-                                <td class="vra-col"><i class="fa fa-times vra-no" aria-label="VRA off"></i></td>
-                                <td>56.82%</td>
-                                <td>28.20%</td>
-                                <td>40.13%</td>
-                                <td>85.70%</td>
-                                <td><strong>33.93%</strong></td>
-                                <td>1650.21</td>
-                            </tr>
-                            <tr>
-                                <td class="vra-col"><i class="fa fa-check vra-yes" aria-label="VRA on"></i></td>
-                                <td><strong>59.67%</strong></td>
-                                <td><strong>33.33%</strong></td>
-                                <td><strong>48.55%</strong></td>
-                                <td><strong>87.43%</strong></td>
-                                <td><strong>33.93%</strong></td>
-                                <td><strong>1694.52</strong></td>
-                            </tr>
-                            <tr>
-                                <td class="model-col" rowspan="2">SigLipv2</td>
-                                <td class="vra-col"><i class="fa fa-times vra-no" aria-label="VRA off"></i></td>
-                                <td>58.90%</td>
-                                <td>28.22%</td>
-                                <td>40.90%</td>
-                                <td>90.13%</td>
-                                <td>37.20%</td>
-                                <td>1738.96</td>
-                            </tr>
-                            <tr>
-                                <td class="vra-col"><i class="fa fa-check vra-yes" aria-label="VRA on"></i></td>
-                                <td><strong>62.66%</strong></td>
-                                <td><strong>33.11%</strong></td>
-                                <td><strong>44.40%</strong></td>
-                                <td><strong>90.77%</strong></td>
-                                <td><strong>37.20%</strong></td>
-                                <td><strong>1835.62</strong></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p class="image-caption">Although using a much stronger vision encoder, we observe that adopting our regularization loss also leads to consistent improvements.</p>
-                </div>  
-                  
+                
                 <h3>Generally applicable to MLLMs across model scales and LLM backbones.</h3>
                 <p>Experiments with Qwen2.5-7B and a scaled-up Vicuna-1.5-13B show that VIRAL follows a scaling trend and generalizes across different LLM backbones.</p>
-                <div class="table-container">
-                    <table class="advantages-table">
-                        <thead>
-                            <tr>
-                                <th class="model-col">Vision Encoder</th>
-                                <th class="model-col">Language Model</th>
-                                <th class="vra-col">VRA Loss</th>
-                                <th>CV-Bench<sup>2D</sup></th>
-                                <th>MMVP</th>
-                                <th>What's Up</th>
-                                <th>POPE</th>
-                                <th>MMStar</th>
-                                <th>MME</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="model-col" rowspan="4">CLIP</td>
-                                <td class="model-col" rowspan="2"><strong>Qwen2.5-7B</strong></td>
-                                <td class="vra-col"><i class="fa fa-times vra-no" aria-label="VRA off"></i></td>
-                                <td>58.97%</td>
-                                <td>33.47%</td>
-                                <td>59.08%</td>
-                                <td><strong>85.88%</strong></td>
-                                <td>39.20%</td>
-                                <td>1743.56</td>
-                            </tr>
-                            <tr>
-                                <td class="vra-col"><i class="fa fa-check vra-yes" aria-label="VRA on"></i></td>
-                                <td><strong>60.50%</strong></td>
-                                <td><strong>36.07%</strong></td>
-                                <td><strong>63.57%</strong></td>
-                                <td>84.92%</td>
-                                <td><strong>39.67%</strong></td>
-                                <td><strong>1765.65</strong></td>
-                            </tr>
-                            <tr>
-                                <td class="model-col" rowspan="2"><strong>Vicuna-1.5-13B</strong></td>
-                                <td class="vra-col"><i class="fa fa-times vra-no" aria-label="VRA off"></i></td>
-                                <td>57.51%</td>
-                                <td>39.33%</td>
-                                <td>44.44%</td>
-                                <td>87.12%</td>
-                                <td>34.47%</td>
-                                <td>1599.04</td>
-                            </tr>
-                            <tr>
-                                <td class="vra-col"><i class="fa fa-check vra-yes" aria-label="VRA on"></i></td>
-                                <td><strong>58.97%</strong></td>
-                                <td><strong>45.33%</strong></td>
-                                <td><strong>62.26%</strong></td>
-                                <td><strong>87.79%</strong></td>
-                                <td><strong>37.00%</strong></td>
-                                <td><strong>1636.62</strong></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p class="image-caption">Across different LLM backbones, the regularization loss remains effective and yields consistent improvements.</p>
-                </div>
+            
                 
                 <h3>Key Improvements</h3>
                 <p>With VIRAL, performance on vision-centric tasks like counting and spatial reasoning improves significantly, outperforming LLaVA-7B-1.5 on challenging visual questions.</p>
                 <div class="image-container">
                     <img src="matrix_images/viral_qual_hd.png" class="img large-image" alt="Qualitative examples">
                     <p class="image-caption">The left part presents PCA visualizations of intermediate representations, demonstrating that VIRAL yields more structured, semantically meaningful visual embeddings. The right part illustrates instance counting and spatial relation tasks, highlighting scenarios where VIRAL correctly answers questions while the baseline fails.</p>
-                </div>
+                </div> -->
             </section>
             <!-- Contents: Results -->
             <section id="results" class="section">
                 <h2>Results</h2>
 
                 <p>We identify optimal visual features and layers for aligning MLLM representations. We adopt DINOv2 as the default encoder. Layer-wise analysis shows the 16th layer yields the best results, with single-layer alignment outperforming multi-layer targets. Finally, we compare direct feature alignment with relation-based objectives over self-similarity matrices.</p>
-                <div class="table-container">
-                    <table class="advantages-table">
-                        <thead>
-                        <tr>
-                            <th class="model-col">VFM</th>
-                            <th class="model-col">Layer</th>
-                            <th class="model-col">Objective</th>
-                            <th>CV-Bench<sup>2D</sup></th>
-                            <th>MMVP</th>
-                            <th>What's Up</th>
-                            <th>POPE</th>
-                            <th>MME</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <!-- Baseline -->
-                        <tr>
-                            <td class="model-col">Baseline</strong></td>
-                            <td></td>
-                            <td></td>
-                            <td>56.82%</td>
-                            <td>28.20%</td>
-                            <td>40.13%</td>
-                            <td>85.70%</td>
-                            <td>1650.21</td>
-                        </tr>
-
-                        <!-- Different VFMs -->
-                        <tr><td colspan="8"><em><span class="bold-text">Ablation on different VFMs</span></em></td></tr>
-                        <tr>
-                            <td><span class="bold-text">DINOv2</span></td><td>16</td><td>Cos. Sim.</td>
-                            <td><strong>59.67%</strong></td><td><strong>33.33%</strong></td>
-                            <td><u>48.55%</u></td><td>88.32%</td>
-                            <td><strong>1694.52</strong></td>
-                        </tr>
-                        <tr>
-                            <td>CLIP</td><td>16</td><td>Cos. Sim.</td>
-                            <td>57.51%</td><td>29.33%</td><td>44.50%</td><td>87.17%</td><td>1548.49</td>
-                        </tr>
-                        <tr>
-                            <td>SAM</td><td>16</td><td>Cos. Sim.</td>
-                            <td>57.58%</td><td>30.27%</td><td><strong>49.84%</strong></td><td>88.34%</td><td>1648.77</td>
-                        </tr>
-                        <tr>
-                            <td>DAv2</td><td>16</td><td>Cos. Sim.</td>
-                            <td><u>58.55%</u></td><td>28.67%</td><td>47.29%</td><td><strong>88.70%</strong></td><td>1682.42</td>
-                        </tr>
-                        <tr>
-                            <td>RADIO</td><td>16</td><td>Cos. Sim.</td>
-                            <td>57.59%</td><td><u>31.80%</u></td><td>47.35%</td><td><u>88.52%</u></td><td><u>1692.94</u></td>
-                        </tr>
-
-                        <!-- Single-layer targets -->
-                        <table class="advantages-table">
-                        <thead>
-                        <tr>
-                            <th class="model-col">VFM</th>
-                            <th class="model-col">Layer</th>
-                            <th class="model-col">Objective</th>
-                            <th>CV-Bench<sup>2D</sup></th>
-                            <th>MMVP</th>
-                            <th>What's Up</th>
-                            <th>POPE</th>
-                            <th>MME</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr><td colspan="8"><em>Ablation on single-layer targets</em></td></tr>
-                        <tr><td>DINOv2</td><td>4</td><td>Cos. Sim.</td><td><u>58.55%</u></td><td><u>30.67%</u></td><td>45.05%</td><td>87.68%</td><td>1720.36</td></tr>
-                        <tr><td>DINOv2</td><td>8</td><td>Cos. Sim.</td><td>58.28%</td><td>27.70%</td><td><u>48.32%</u></td><td><u>88.43%</u></td><td>1662.67</td></tr>
-                        <tr><td>DINOv2</td><td>12</td><td>Cos. Sim.</td><td>57.77%</td><td>28.59%</td><td>48.19%</td><td>88.27%</td><td>1648.88</td></tr>
-                        <tr><td>DINOv2</td><td>16</td><td>Cos. Sim.</td><td><strong>59.67%</strong></td><td><strong>33.33%</strong></td><td><strong>48.55%</strong></td><td>88.32%</td><td>1694.52</td></tr>
-                        <tr><td>DINOv2</td><td>20</td><td>Cos. Sim.</td><td>55.22%</td><td>27.41%</td><td>48.04%</td><td>88.39%</td><td>1705.97</td></tr>
-                        <tr><td>DINOv2</td><td>24</td><td>Cos. Sim.</td><td>55.77%</td><td>27.48%</td><td>47.99%</td><td>88.10%</td><td><u>1740.55</u></td></tr>
-                        <tr><td>DINOv2</td><td>28</td><td>Cos. Sim.</td><td>54.87%</td><td>27.19%</td><td>47.82%</td><td><strong>88.56%</strong></td><td><strong>1755.86</strong></td></tr>
-                        <tr><td>DINOv2</td><td>32</td><td>Cos. Sim.</td><td>56.12%</td><td>26.52%</td><td>47.60%</td><td>87.32%</td><td>1678.69</td></tr>
-
-                        <!-- Multi-layer targets -->
-                        <tr><td colspan="8"><em>Ablation on multi-layer targets</em></td></tr>
-                        <tr><td>DINOv2</td><td>15–17</td><td>Cos. Sim.</td><td>59.32%</td><td>28.00%</td><td>47.17%</td><td>87.61%</td><td>1639.72</td></tr>
-                        <tr><td>DINOv2</td><td>14–18</td><td>Cos. Sim.</td><td>49.62%</td><td>22.55%</td><td>42.58%</td><td>87.90%</td><td>1444.32</td></tr>
-                        </tbody>    
-                        <table class="advantages-table">
-                        <thead>
-                        <tr>
-                            <th class="model-col">VFM</th>
-                            <th class="model-col">Layer</th>
-                            <th class="model-col">Objective</th>
-                            <th>CV-Bench<sup>2D</sup></th>
-                            <th>MMVP</th>
-                            <th>What's Up</th>
-                            <th>POPE</th>
-                            <th>MME</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <!-- Alignment objectives -->
-                        <tr><td colspan="8"><em>Ablation on different objectives</em></td></tr>
-                        <tr><td>DINOv2</td><td>16</td><td>Relation</td><td>58.83%</td><td>26.60%</td><td><strong>49.05%</strong></td><td>87.58%</td><td>1674.30</td></tr>
-                        <tr><td>DINOv2</td><td>16</td><td>Cos. Sim.</td><td><strong>59.67%</strong></td><td><strong>33.33%</strong></td><td>48.55%</td><td><strong>88.32%</strong></td><td><strong>1694.52</strong></td></tr>
-                        </tbody>
-                    </table>
-                    <p class="image-caption">Ablation results across VFMs, layers, and objectives. Consistent gains are observed with VIRAL regularization.</p>
-                </div>
+                
             </section>
             <!-- Contents: Conclusion -->
             <section id="conclusion" class="section">
                 <h2>Conclusion</h2>
 
-                <p>In this work, we propose VIRAL, a simple yet effective training strategy that aligns the internal visual representations of MLLMs with those from powerful vision foundation models. Our approach preserves fine-grained visual semantics often discarded under text-only supervision, enabling more accurate spatial reasoning and object grounding. Extensive experiments across diverse benchmarks validate the effectiveness and generality of our method, demonstrating that visual representation alignment significantly enhances both performance and training efficiency in multimodal learning.</p>
+                <p>In this work, we propose MATRIX, a simple yet effective</p>
             </section>
             <!-- Contents: Citation -->
             <div class="citation add-top-padding">
                 <h1 id="citation">Citation</h1>
                 <p> If you use this work or find it helpful, please consider citing: </p>
                 <pre id="codecell0">
-    @misc{yoon2025visualrepresentationalignmentmultimodal,
-      title={Visual Representation Alignment for Multimodal Large Language Models}, 
-      author={Heeji Yoon and Jaewoo Jung and Junwan Kim and Hyungyu Choi and Heeseong Shin and Sangbeom Lim and Honggyu An and Chaehyun Kim and Jisang Han and Donghyun Kim and Chanho Eom and Sunghwan Hong and Seungryong Kim},
-      year={2025},
-      eprint={2509.07979},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2509.07979}}
+
                 </pre>
             </div>
         </div>
