@@ -91,10 +91,9 @@
         <div class="container">
             <div class="title-row">
                 <div class="title-flex">
-                    <video class="title-video" autoplay muted loop playsinline>
+                    <div class="title-image">
                         <source src="images/matrix.png" type="image">
-                        <!-- <source src="images/moving viral.mp4" type="video/mp4"> -->
-                    </video>
+                    </div>
                     <div class="title-text-block">
                         <h1 class="title"><span class="gradient-text">MATRIX</span>: Mask Track Alignment<span class="title-break"></span> for Interaction-Aware Video Generation</h1>
                         <h1 class="subtitle">arXiv 2025</h1>
@@ -225,34 +224,34 @@
             <!-- Contents: Dataset -->
             <section id="dataset" class="section">
                 <h2>Dataset</h2>
-                
+                <h3>Our Dataset Curation Pipeline</h3>
                 <div class="image-container">
                     <div class="image-content">
-                        <img src="images/fig_data_pipeline.png" class="img large-image" alt="MATRIX Analysis illustration">
+                        <img src="images/fig_data_pipeline.png" class="img large-image" alt="MATRIX Analysis illustration" data-fullsrc="images/fig_data_pipeline.png">
                     </div>
                     <p class="image-caption">  <strong>Top</strong> : An LLM (a) identifies interaction triplets, (b) filters them using Dynamism and Contactness, and (c) extracts per-ID appearance descriptions. 
                     <strong>Bottom</strong> : A VLM then verifies candidate to select an anchor frame, from which SAM2 propagates masks to produce instance mask tracks.  </p>
                 </div>
-                
+                <h3>Curated Dataset Examples</h3>
                 <div class="slideshow-container">
                     <div class="slideshow">
                         <figure class="slide">
                             <img src="images/dataset_example.png"
-                                    alt=""
-                                    data-fullsrc="images/dataset_example.png">
+                                alt=""
+                                data-fullsrc="images/dataset_example.png">
                     
-                            <figurecaption>
+                            <figcaption>
                                 Dataset example.
-                            </figurecaption>
+                            </figcaption>
                         </figure>
                         <figure class="slide">
                             <img src="images/dataset_example2.png"
                                     alt=""
                                     data-fullsrc="images/dataset_example2.png">
                     
-                            <figurecaption>
+                            <figcaption>
                                 Dataset example.
-                            </figurecaption>
+                            </figcaption>
                         </figure>
                     </div>
                   
@@ -270,7 +269,7 @@
                 <h2>Analysis</h2>
                 <div class="image-container">
                     <div class="image-content">
-                        <img src="images/fig_analysis_graph.png" class="img large-image" alt="Comparisons diagram">
+                        <img src="images/fig_analysis_graph.png" class="img large-image" alt="Comparisons diagram" data-fullsrc="images/fig_analysis_graph.png">
                     </div>
                     <p class="image-caption"> (a) <strong>Influential layers</strong> : layers with high AAS that rank in the Top-10 for many videos. 
                         <br>
@@ -285,7 +284,7 @@
                         While aligning multimodal models with their own encoder features preserves some visual cues, it is fundamentally constrained by the encoder’s representational capacity. To overcome this limitation, we leverage stronger vision foundation models (VFMs) as teachers, providing richer, vision-centric targets.
                         </p>
                         <p>
-                        Building on this insight, we introduce <strong><i>VIRAL</i></strong>, which aligns intermediate MLLM representations to features from pretrained VFMs, thereby preserving more informative visual semantics than those available from the input encoder alone.
+                        Building on this insight, we introduce <strong><i>MATRIX</i></strong>, which aligns attentions in interaction-dominant layers from video DiTs with instance mask tracks, 
                         </p>
                     </div>
                 </div>
@@ -318,9 +317,17 @@
             <!-- Contents: Results -->
             <section id="results" class="section">
                 <h2>Results</h2>
+                <h3>Qualitative Comparisons</h3>
+                <div class="slideshow-container">
+                    <div class="slideshow" data-range="000-011" data-dir="videos" data-ext="mp4"></div>
+                    <button class="slideshow-nav prev" aria-label="Previous slide" title="Previous">&#10094;</button>
+                    <button class="slideshow-nav next" aria-label="Next slide" title="Next">&#10095;</button>
+                    <button class="play-pause" aria-label="Pause autoplay" title="Pause autoplay">
+                        <i class="fa fa-pause"></i>
+                      </button>
+                </div>
 
-                <p>We identify optimal visual features and layers for aligning MLLM representations. We adopt DINOv2 as the default encoder. Layer-wise analysis shows the 16th layer yields the best results, with single-layer alignment outperforming multi-layer targets. Finally, we compare direct feature alignment with relation-based objectives over self-similarity matrices.</p>
-                
+                <h3>Quantitative Comparisons</h3>                
             </section>
             <!-- Contents: Conclusion -->
             <section id="conclusion" class="section">
@@ -361,7 +368,36 @@
             text.textContent = 'Click to unmute';
         }
     }
-    
+    document.querySelectorAll('.slideshow[data-range]').forEach(slideshow => {
+        if (slideshow.querySelector('.slide')) return; // 이미 있으면 스킵
+
+        const [startStr, endStr] = slideshow.dataset.range.split('-').map(s => s.trim());
+        const pad = Math.max(startStr.length, endStr.length);
+        const start = parseInt(startStr, 10);
+        const end   = parseInt(endStr, 10);
+        const dir   = (slideshow.dataset.dir || '').replace(/\/?$/, '/'); // 끝에 / 보장
+        const ext   = (slideshow.dataset.ext || 'mp4').replace(/^\./, '');
+
+        for (let i = start; i <= end; i++) {
+            const id = String(i).padStart(pad, '0'); // 000, 001, ... 011
+            const fig = document.createElement('figure');
+            fig.className = 'slide';
+            if (i === start) fig.classList.add('active');
+
+            const video = document.createElement('video');
+            video.className = 'video';
+            video.autoplay = true; video.muted = true; video.loop = true; video.playsInline = true;
+            video.preload = 'metadata';
+
+            const src = document.createElement('source');
+            src.src = `${dir}${id}.${ext}`;
+            src.type = `video/${ext}`;
+
+            video.appendChild(src);
+            fig.appendChild(video);
+            slideshow.appendChild(fig);
+        }
+    });
     document.addEventListener('DOMContentLoaded', function() {
         const videos = document.querySelectorAll('video');
         videos.forEach(video => {
@@ -376,129 +412,129 @@
             });
         });
 
-        // Initialize all slideshows
-        document.querySelectorAll('.slideshow-container').forEach(container => {
-            const slideshow = container.querySelector('.slideshow');
-            const slides = slideshow.querySelectorAll('.slide');
-            const prevButton = container.querySelector('.slideshow-nav.prev');
-            const nextButton = container.querySelector('.slideshow-nav.next');
-            const playPauseButton = container.querySelector('.play-pause');
-            
-            let currentSlide = 0;
-            let autoplayInterval;
-            let isPlaying = true;
-
-            function showSlide(n) {
-                slides.forEach(slide => slide.classList.remove('active'));
-                currentSlide = (n + slides.length) % slides.length;
-                slides[currentSlide].classList.add('active');
-            }
-
-            function changeSlide(n) {
-                showSlide(currentSlide + n);
-                resetAutoplay();
-            }
-
-            function togglePlayPause() {
-                if (isPlaying) {
-                    clearInterval(autoplayInterval);
-                    playPauseButton.innerHTML = '<i class="fa fa-play"></i>';
-                } else {
-                    startAutoplay();
-                    playPauseButton.innerHTML = '<i class="fa fa-pause"></i>';
-                }
-                isPlaying = !isPlaying;
-            }
-
-            function startAutoplay() {
-                autoplayInterval = setInterval(() => {
-                    showSlide(currentSlide + 1);
-                }, 5000);
-            }
-
-            function resetAutoplay() {
-                clearInterval(autoplayInterval);
-                if (isPlaying) {
-                    startAutoplay();
-                }
-            }
-
-            // Initialize this slideshow
-            showSlide(0);
-            startAutoplay();
-
-            // Add event listeners
-            prevButton.addEventListener('click', () => changeSlide(-1));
-            nextButton.addEventListener('click', () => changeSlide(1));
-            playPauseButton.addEventListener('click', togglePlayPause);
-        });
-
-        // Handle main video play button
-        const mainVideo = document.querySelector('.main-video');
-        const playButton = document.querySelector('.play-button-overlay');
+    // Initialize all slideshows
+    document.querySelectorAll('.slideshow-container').forEach(container => {
+        const slideshow = container.querySelector('.slideshow');
+        if (!slideshow) return;
+        const slides = slideshow.querySelectorAll('.slide');
+        if (!slides.length) return;
+        const prevButton = container.querySelector('.slideshow-nav.prev');
+        const nextButton = container.querySelector('.slideshow-nav.next');
+        const playPauseButton = container.querySelector('.play-pause');
         
-        if (mainVideo && playButton) {
-            // Click play button to play video
-            playButton.addEventListener('click', () => {
-                mainVideo.play();
-                mainVideo.classList.add('playing');
-            });
+        let currentSlide = 0;
+        let autoplayInterval = null;
+        let isPlaying = true;
 
-            // Handle video play/pause events
-            mainVideo.addEventListener('play', () => {
-                mainVideo.classList.add('playing');
-            });
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
 
-            mainVideo.addEventListener('pause', () => {
-                mainVideo.classList.remove('playing');
-            });
-
-            mainVideo.addEventListener('ended', () => {
-                mainVideo.classList.remove('playing');
-            });
+            slides.forEach(s => { const v = s.querySelector('video'); if (v) v.pause(); });
+            const v = slides[currentSlide].querySelector('video');
+            if (v) { v.muted = true; v.play().catch(()=>{}); }
         }
 
-        // -----------------------------
-        // 🖼️ Click-to-zoom Lightbox
-        // -----------------------------
-        // Build overlay once
-        const lightbox = document.createElement('div');
-        lightbox.className = 'lightbox-overlay';
-        lightbox.setAttribute('role', 'dialog');
-        lightbox.setAttribute('aria-modal', 'true');
-        lightbox.innerHTML = '<img alt="Expanded image">';
-        document.body.appendChild(lightbox);
-        const lightboxImg = lightbox.querySelector('img');
-
-        function openLightbox(src, alt) {
-            lightboxImg.src = src;
-            lightboxImg.alt = alt || '';
-            lightbox.classList.add('active');
-            document.body.classList.add('no-scroll');
-        }
-        function closeLightbox() {
-            lightbox.classList.remove('active');
-            document.body.classList.remove('no-scroll');
-            lightboxImg.src = '';
+        function startAutoplay() {
+            if (autoplayInterval || slides.length < 2) return;
+            autoplayInterval = setInterval(() => showSlide(currentSlide + 1), 5000);
+            isPlaying = true;
+            if (playPauseButton) playPauseButton.innerHTML = '<i class="fa fa-pause"></i>';
         }
 
-        // Close on click anywhere or on Esc
-        lightbox.addEventListener('click', closeLightbox);
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox();
-        });
+        function stopAutoplay() {
+            if (autoplayInterval) clearInterval(autoplayInterval);
+            autoplayInterval = null;
+            isPlaying = false;
+            if (playPauseButton) playPauseButton.innerHTML = '<i class="fa fa-play"></i>';
+        }
 
-        // Mark target images as zoomable and wire up click
-        const zoomableImages = document.querySelectorAll('.image-container img, .slideshow img, .main-content img.img, .hero-section img.img');
-        zoomableImages.forEach(img => {
-            img.classList.add('zoomable');
-            img.addEventListener('click', () => {
-                // support optional high-res source via data-fullsrc
-                const src = img.getAttribute('data-fullsrc') || img.currentSrc || img.src;
-                openLightbox(src, img.alt);
-            });
+        function changeSlide(step) {
+            showSlide(currentSlide + step);
+            if (isPlaying) { stopAutoplay(); startAutoplay(); }
+        }
+
+        // Initialize this slideshow
+        showSlide(0);
+        // startAutoplay();
+
+        // Add event listeners
+        if (prevButton) prevButton.addEventListener('click', () => changeSlide(-1));
+        if (nextButton) nextButton.addEventListener('click', () => changeSlide(1));
+        if (playPauseButton) playPauseButton.addEventListener('click', () => {
+            isPlaying ? stopAutoplay() : startAutoplay();
         });
     });
+
+    
+
+    // Handle main video play button
+    const mainVideo = document.querySelector('.main-video');
+    const playButton = document.querySelector('.play-button-overlay');
+    
+    if (mainVideo && playButton) {
+        // Click play button to play video
+        playButton.addEventListener('click', () => {
+            mainVideo.play();
+            mainVideo.classList.add('playing');
+        });
+
+        // Handle video play/pause events
+        mainVideo.addEventListener('play', () => {
+            mainVideo.classList.add('playing');
+        });
+
+        mainVideo.addEventListener('pause', () => {
+            mainVideo.classList.remove('playing');
+        });
+
+        mainVideo.addEventListener('ended', () => {
+            mainVideo.classList.remove('playing');
+        });
+    }
+
+    // -----------------------------
+    // 🖼️ Click-to-zoom Lightbox
+    // -----------------------------
+    // Build overlay once
+    const lightbox = document.createElement('div');
+    lightbox.className = 'lightbox-overlay';
+    lightbox.setAttribute('role', 'dialog');
+    lightbox.setAttribute('aria-modal', 'true');
+    lightbox.innerHTML = '<img alt="Expanded image">';
+    document.body.appendChild(lightbox);
+    const lightboxImg = lightbox.querySelector('img');
+
+    function openLightbox(src, alt) {
+        lightboxImg.src = src;
+        lightboxImg.alt = alt || '';
+        lightbox.classList.add('active');
+        document.body.classList.add('no-scroll');
+    }
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.classList.remove('no-scroll');
+        lightboxImg.src = '';
+    }
+
+    // Close on click anywhere or on Esc
+    lightbox.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox();
+    });
+
+    // Mark target images as zoomable and wire up click
+    const zoomableImages = document.querySelectorAll('.image-container img, .slideshow img, .main-content img.img, .hero-section img.img, .slideshow video');
+    zoomableImages.forEach(img => {
+        img.classList.add('zoomable');
+        img.addEventListener('click', () => {
+            // support optional high-res source via data-fullsrc
+            const src = img.getAttribute('data-fullsrc') || img.currentSrc || img.src;
+            openLightbox(src, img.alt);
+        });
+    });
+});
     </script>
 </body>
 </html>
