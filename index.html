@@ -5,8 +5,8 @@
     <title>MATRIX: Mask Track Alignment for Interaction-Aware Video Generation</title>
 
     <!-- Favicon references -->
-    <link rel="icon" type="image/png" href="./matrix_images/logo.png">
-    <link rel="apple-touch-icon" href="./matrix_images/logo.png">
+    <link rel="icon" type="image/png" href="./images/logo.png">
+    <link rel="apple-touch-icon" href="./images/logo.png">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 
     <meta
@@ -92,8 +92,8 @@
             <div class="title-row">
                 <div class="title-flex">
                     <video class="title-video" autoplay muted loop playsinline>
-                        <source src="images/robot_alpha.webm" type="video/webm">
-                        <source src="images/moving viral.mp4" type="video/mp4">
+                        <source src="images/matrix.png" type="image">
+                        <!-- <source src="images/moving viral.mp4" type="video/mp4"> -->
                     </video>
                     <div class="title-text-block">
                         <h1 class="title"><span class="gradient-text">MATRIX</span>: Mask Track Alignment<span class="title-break"></span> for Interaction-Aware Video Generation</h1>
@@ -104,64 +104,63 @@
             <!-- Author Information -->
             <div class="base-row author-row">
                 <div class="base-col author-col">
-                    <a href= "https://yoon-heez.github.io/" target ="_blank" class="author-text">
-                        Siyoon Jin<sup>1*</sup>
+                    <a href= "https://JinSY515.github.io/" target ="_blank" class="author-text">
+                        Siyoon Jin
                     </a>
                 </div>
                 <div class="base-col author-col">
-                    <a href="https://crepejung00.github.io/" target="_blank" class="author-text">
-                        Seongchan Kim<sup>1*</sup>
+                    <a href="" target="_blank" class="author-text">
+                        Seongchan Kim
                     </a>
                 </div>
                 <div class="base-col author-col">
-                    <a href="https://junwankimm.github.io/" target="_blank" class="author-text">
-                        Jaeho Lee<sup>2*</sup>
+                    <a href="" target="_blank" class="author-text">
+                        Jaeho Lee
                     </a>
                 </div>
                 <div class="base-col author-col">
-                    <a href="https://hyungyu-choi.github.io/" target="_blank" class="author-text">
-                        Dahyun Chung<sup>3</sup>
+                    <a href="" target="_blank" class="author-text">
+                        Dahyun Chung
                     </a>
                 </div>
             </div>
             <div class="base-row author-row">
                 <div class="base-col author-col">
-                    <a href="https://utl.korea.ac.kr/" target="_blank" class="author-text">
-                        Hyunwook Choi<sup>4</sup>
+                    <a href="" target="_blank" class="author-text">
+                        Hyunwook Choi
                     </a>
                 </div>
                 <div class="base-col author-col">
-                    <a href="https://pailab.cau.ac.kr/" target="_blank" class="author-text">
-                        Jiyoung Kim<sup>3</sup>
+                    <a href="" target="_blank" class="author-text">
+                        Jiyoung Kim
                     </a>
                 </div>
                 <div class="base-col author-col">
-                    <a href="https://sunghwanhong.github.io/" target="_blank" class="author-text">
-                        Jisu Nam<sup>5</sup>
+                    <a href="" target="_blank" class="author-text">
+                        Jisu Nam
                     </a>
                 </div>
                 <div class="base-col author-col">
                     <a href="https://cvlab.kaist.ac.kr/" target="_blank" class="author-text">
-                        Seungryong Kim<sup>1</sup>
+                        Seungryong Kim
                     </a>
                 </div>
             </div>
             <!-- Author Affiliations -->
             <div class="base-row author-row">
                 <div class="base-col author-col affiliations">
-                    <sup>1</sup>KAIST AI &nbsp;&nbsp; <sup>2</sup>Korea University
+                    KAIST AI &nbsp;&nbsp; 
                     <br>
-                    <sup>*</sup>Co-first authors
                 </div>
             </div>
             <!-- Links -->
             <div class="link-labels base-row"> 
-                <div class="base-col icon-col"><a href="https://arxiv.org/pdf/2509.07979" target="_blank"
+                <div class="base-col icon-col"><a href="" target="_blank"
                         class="link-block">
                         <i class="fa fas fa-file-text main-icon" style="font-size: 60px"></i>
                         <strong class="link-labels-text">Paper</strong>
                     </a></div>
-                <div class="base-col icon-col"><a href='https://github.com/cvlab-kaist/MATRX.git' class="link-block">
+                <div class="base-col icon-col"><a href='https://github.com/cvlab-kaist/MATRIX' class="link-block">
                         <i class="fa fa-github main-icon" style="font-size: 60px"></i>
                         <strong class="link-labels-text">Code</strong>
                     </a></div>
@@ -177,41 +176,50 @@
         <div class="container">
             <!-- Contents: TL;DR -->
             <div class="tldr">
-                <b>TL;DR</b>: MATRIX introduces a lightweight LoRA-based regularization that aligns the key interaction-dominant layers of Video Diffusion Transformers with multi-instance mask tracks to improve multi-instance interaction fidelity and temporal consistency.
+                <b>TL;DR</b>: MATRIX reveals how video diffusion transformers (DiTs) represent multi-instance or subject-object interactions during video generation. Building on this, our MATRIX framework introduces a simple yet effective regularization that aligns the attention of key interaction-dominant layers with multi-instance mask tracks to enhance the interaction-awareness of video DiTs during video generation.
             </div>
             <!-- Contents: Overview -->
             <div id="overview" class="base-row section">
                 <h2>Overview</h2>
                 <p class="paragraph">
+                    <!---
                     Recent video diffusion models can generate high-quality videos but often fail to correctly represent multi-object interactions — e.g., losing track of who does what to whom or drifting identities over time. MATRIX tackles this by first analyzing how DiTs internally bind text and video tokens, revealing that semantic grounding and temporal propagation of interactions emerge only in a few critical attention layers. 
                     It then fine-tunes just those layers using SGA + SPA losses aligned with multi-instance mask tracks, enabling efficient improvement without retraining the whole model. To support both analysis and fair benchmarking, the authors release MATRIX-11K, a large dataset of interaction-rich videos, and InterGenEval, a new protocol to measure interaction fidelity beyond standard quality metrics.
+                    -->
+                    Video DiTs have advanced video generation, yet they still struggle to model multi-instance or subject-object interactions. This raises a key question: <strong>How do these models internally represent interactions?</strong> 
+                    To answer this, we curate MATRIX-11K, a video dataset with interaction-aware captions and multi-instance mask tracks. 
+                    Using this dataset, we conduct a systematic analysis that formalizes two perspectives of video DiTs: <strong>semantic grounding</strong>, via video-to-text attention, which evaluates whether noun and verb tokens capture instances and their relations; 
+                    and <strong>semantic propagation</strong>, via video-to-video attention, which assesses whether instance bindings persist across frames. 
+                    We find both effects concentrate in a small subset of interaction-dominant layers. Motivated by this, we introduce <strong>MATRIX</strong>, a simple and effective regularization that aligns attention in specific layers of video DiTs with multi-instance mask tracks from the MATRIX-11K dataset, enhancing both grounding and propagation. 
+                    We further propose <strong>InterGenEval</strong>, an evaluation protocol for interaction-aware video generation. 
+                    In experiments, MATRIX improves both interaction fidelity and semantic alignment while reducing drift and hallucination. Extensive ablations validate our design choices. 
                 </p>
             </div>
             <div class="image-container">
                 <div class="image-content">
-                    <img src="matrix_images/teaser.png" class="img large-image" alt="MATRIX teaser">
+                    <img src="images/teaser.png" class="img large-image" alt="MATRIX teaser">
                 </div>
             </div>
             <div>
                 <p>
-                    <img class="paragraph-image" src="matrix_images/logo.png" alt="MATRIX robot" />
-                    MATRIX-11K Dataset — 11K videos with interaction-aware captions and instance-level mask tracks.
+                    <img class="paragraph-image" src="images/logo.png" alt="MATRIX robot" />
+                    <strong>MATRIX-11K</strong> Dataset — 11K videos with interaction-aware captions and instance-level mask tracks.
                 </p>
                 <p>
-                    <img class="paragraph-image" src="matrix_images/logo.png" alt="MATRIX robot" />
-                    First systematic analysis of how Video DiTs encode semantic grounding & propagation, identifying interaction-dominant layers.
+                    <img class="paragraph-image" src="images/logo.png" alt="MATRIX robot" />
+                    <strong>First systematic analysis</strong> of how Video DiTs encode semantic grounding and semantic propagation, analyzed via 3D full attentions, identifying interaction-dominant layers.
                 </p>
                 <p>
-                    <img class="paragraph-image" src="matrix_images/logo.png" alt="MATRIX robot" />
-                    MATRIX Framework — lightweight LoRA-based tuning with SGA & SPA losses applied selectively to improve interaction fidelity and temporal consistency.
+                    <img class="paragraph-image" src="images/logo.png" alt="MATRIX robot" />
+                    <strong>MATRIX</strong> Framework — a simple yet effective regularization that aligns attention in interaction-dominant layers with multi-instance mask tracks via two terms, including Semantic Grounding Alignment (SGA) and Semantic Propagation Alignment (SPA) losses. 
                 </p>
                 <p>
-                    <img class="paragraph-image" src="matrix_images/logo.png" alt="MATRIX robot" />
-                    InterGenEval Protocol — new metrics (KISA, SGI, SPI, IF) for interaction-aware video generation evaluation.
+                    <img class="paragraph-image" src="images/logo.png" alt="MATRIX robot" />
+                    <strong>InterGenEval</strong> Protocol — an interaction-aware evaluation protocol that measures Key Interaction Semantic Alignment (KISA), Semantic Grounding Integrity (SGI), along with Semantic Propagation Integrity (SPI), and Interaction Fidelity (IF).
                 </p>
                 <p>
-                    <img class="paragraph-image" src="matrix_images/logo.png" alt="MATRIX robot" />
-                    State-of-the-art performance — significant interaction fidelity gains over CogVideoX, Open-Sora, and TaVid while maintaining video quality.
+                    <img class="paragraph-image" src="images/logo.png" alt="MATRIX robot" />
+                    <strong>State-of-the-art</strong> performance — significant interaction fidelity gains over baselines while maintaining video quality.
                 </p>
             </div>
             <!-- Contents: Dataset -->
@@ -219,7 +227,7 @@
                 <h2>Dataset</h2>
                 <div class="image-container">
                     <div class="image-content">
-                        <img src="matrix_images/fig_data_pipeline.png" class="img large-image" alt="Comparisons diagram">
+                        <img src="images/fig_data_pipeline.png" class="img large-image" alt="Comparisons diagram">
                     </div>
                     <p class="image-caption">(e) Layer-wise alignment between visual tokens in MLLMs and vision encoder features measured by CKNNA, with shaded regions highlighting middle layers that are especially important for visual understanding. (f) Benchmark performance corresponding to (a–d) </p>
                 </div>
