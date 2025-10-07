@@ -229,7 +229,7 @@
                 <h3>Our Dataset Curation Pipeline</h3>
                 <div class="image-container">
                     <div class="image-content">
-                        <img src="images/fig_data_pipeline.png" class="img large-image" alt="MATRIX Analysis illustration" data-fullsrc="images/fig_data_pipeline.png">
+                        <img src="images/fig_data_pipeline.png" class="img large-image" alt="MATRIX-11K illustration" data-fullsrc="images/fig_data_pipeline.png">
                     </div>
                     <p class="image-caption">  <strong>Top</strong> : An LLM (a) identifies interaction triplets, (b) filters them using Dynamism and Contactness, and (c) extracts per-ID appearance descriptions. 
                     <strong>Bottom</strong> : A VLM then verifies candidate to select an anchor frame, from which SAM2 propagates masks to produce instance mask tracks.  </p>
@@ -243,7 +243,7 @@
                                 data-fullsrc="images/dataset_example.png">
                     
                             <figcaption>
-                                Dataset example.
+                                <strong>Dataset Example.</strong> Given a video and a caption, we extract interaction information including subject, verb, object, its appearance description and interaction-related scores (Contactness, Dynamism). Using the extract information, we extract instance mask tracks using SAM2 and VLM.
                             </figcaption>
                         </figure>
                         <figure class="slide">
@@ -252,7 +252,16 @@
                                     data-fullsrc="images/dataset_example2.png">
                     
                             <figcaption>
-                                Dataset example.
+                                <strong>Dataset Example.</strong> Given a video and a caption, we extract interaction information including subject, verb, object, its appearance description and interaction-related scores (Contactness, Dynamism). Using the extract information, we extract instance mask tracks using SAM2 and VLM.
+                            </figcaption>
+                        </figure>
+                        <figure class="slide">
+                            <img src="images/dataset_statistics.png"
+                                    alt=""
+                                    data-fullsrc="images/dataset_statistics.png">
+                    
+                            <figcaption>
+                                <strong>Dataset Statistics.</strong> Our curated dataset, MATRIX-11K, consists of 11K videos with interaction-aware captions and corresponding instance mask tracks. 
                             </figcaption>
                         </figure>
                     </div>
@@ -277,23 +286,31 @@
                         <br>
                         (b) <strong>Dominant layers</strong> : the influential layers whose mean AAS clearly separates successes from failures. </p>
                 </div>
+                <p><strong>Influential Layer Candidates:</strong> We identify <strong>influential layers</strong> by rank-summing each layer's frequency in the AAS top-10 and its mean AAS, revealing that high alignment consistently concentrates in a small subset of layers.</p>
+                <p><strong>Dominant Layer Selection:</strong> Among the influential layers, we identify the <strong>interaction-dominant layers</strong> that most directly governs the outcomes, where the success gap is large and positive while the failure gap is large and negative relative to the overall mean.</p>
+                <p><strong>Relevance to Interaction-Awareness in Generated Videos.:</strong> When attention map in the interaction-dominant layers concentrates on the corresponding subject/object/union regions, generations are correct and preferred by human raters; when attention is diffused or mislocalized, failrues are common.</p>
             </section>
             <!-- Contents: Framework -->
             <section id="framework" class="section">
                 <h2>Framework</h2>
-                <p>Motivated by our analysis, MATRIX introduces Semantic Grounding Alignment (SGA) and Semantic Propagation Alignment (SPA) losses that directly align attention with ground-truth mask tracks.</p> 
+                <p>Our analysis identifies that a small set of interaction-dominant layers align well with human-verified success and further improves interaction-awareness of the generated video.</p>
+                <p>Motivated by our analysis, <strong>MATRIX</strong> introduces Semantic Grounding Alignment (SGA) and Semantic Propagation Alignment (SPA) losses that directly align attention maps in the interaction-dominant layers with ground-truth mask tracks.</p> 
                 <div class="image-container">
                     <div class="image-content">
                         <img src="images/fig_framework.png" class="img large-image" alt="MATRIX Framework illustration">
                     </div>
-                    <p class="image-caption"> </p> 
+                    <p class="image-caption">SGA and SPA supervise video-to-text and video-to-video attention directly with ground-truth instance mask tracks. We apply these losses only to the interaction-dominant layer, routing alignment where it is most effective, while leaving the remaining layers to preserve general video quality.</p> 
                 </div>
                 
             </section>
             <!-- Contents: Results -->
             <section id="evaluation" class="section">
                 <h2>InterGenEval</h2>
+                <div class="image-container">
+                    <img src="images/InterGenEval.png" class="img large-image" alt="InterGenEval Illustration">
+                    <p class="image-caption"><strong>InterGenEval Protocol Pipeline</strong></p>
 
+                </div>
             </section>
 
             <section id="results" class="section">
@@ -429,7 +446,7 @@
                             <td class="roman sep">(VII)</td>
                             <td class="left"> <strong>(IV) + SPA loss + SGA loss (Ours)</strong></td>
                             <td class="first"><strong>0.546</strong></td><td class="first"><strong>0.641</strong></td><td class="first"><strong>0.593</strong></td>
-                            <td class="first"><strong>0.954</strong></td><td class="second"><strong>0.994</strong></td><td><strong>69.73</strong></td>
+                            <td class="first"><strong>0.954</strong></td><td class="second"><strong>0.994</strong></td><td>69.73</td>
                             </tr>
                         </tbody>
                         </table>
@@ -440,7 +457,8 @@
             <section id="conclusion" class="section">
                 <h2>Conclusion</h2>
 
-                <p>In this work, we propose MATRIX, a simple yet effective</p>
+                <p>In this work, we propose MATRIX, a simple yet effective regularization terms that align the attention maps of 3D full attention in the interaction-dominant layers with ground truth instance mask tracks of subject/object/verb regions. 
+                    Our approach significantly improves interaction fidelity, strengthens noun/verb grounding, and reduces identity drift and duplication without degrading overall video quality. Ablations further highlight the critical role of layer selection and the complementary contributions of SGA and SPA.</p>
             </section>
             <!-- Contents: Citation -->
             <div class="citation add-top-padding">
