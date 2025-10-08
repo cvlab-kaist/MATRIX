@@ -1139,7 +1139,12 @@ pre {
   font-weight:700;
   margin-right:.35em;
 }
-
+.results_video {
+  width: 100%;
+  height: auto;             /* 비율 유지 */
+  object-fit: contain;      /* 잘림 방지(cover면 크롭됨) */
+  display: block;
+}
 @media (max-width: 640px) {
   #results .slideshow video { max-height: 40vh; }
 }
@@ -1174,9 +1179,3 @@ pre {
   /* text-decoration-style: dashed;  점선/이중선은 dashed/dotted/double */
 }
 
-.results_video {
-  width: 100%;
-  height: auto;             /* 비율 유지 */
-  object-fit: contain;      /* 잘림 방지(cover면 크롭됨) */
-  display: block;
-}
