@@ -1173,3 +1173,10 @@ pre {
   text-decoration-color: var(--accent-color); /* 색 바꾸려면 원하는 색 */ !important
   /* text-decoration-style: dashed;  점선/이중선은 dashed/dotted/double */
 }
+
+.results_video {
+  width: 100%;
+  height: auto;             /* 비율 유지 */
+  object-fit: contain;      /* 잘림 방지(cover면 크롭됨) */
+  display: block;
+}

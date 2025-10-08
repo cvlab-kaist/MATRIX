@@ -81,7 +81,7 @@
                     <li><a href="#analysis">Analysis</a></li>
                     <li><a href="#framework">Framework</a></li>
                     <li><a href="#evaluation">Evaluation</a></li>
-                    <li><a href="#quan">Results</a></li>
+                    <li><a href="#results">Results</a></li>
                     <li><a href="#citation">Citation</a></li>
                 </ul>
             </nav>
@@ -185,15 +185,32 @@
                     <b>TL;DR</b>: MATRIX identifies interaction-dominant layers in video DiTs and introduces a simple yet effective regularization that aligns their attention to multi-instance mask tracks, resulting in more interaction-aware video generation.
                 </div>
                 <h2>Teaser</h2>
+                <div class="image-container">
+                    <video class="results_video" autoplay muted loop playsinline>
+                        <source src="videos/teaser_000.mp4" type="video/mp4">
+                    </video>
+                    <p class="image-caption"> <strong>Text Prompt:</strong> At a kitchen counter, a student in a white shirt places a notebook on a wooden table. Cups and plates are scattered nearby, and sunlight comes in through the window. The action demonstrates placing the notebook on the flat surface.</p>
                 
-                <div class="slideshow-container">
+                    <video class="results_video" autoplay muted loop playsinline>
+                        <source src="videos/teaser_001.mp4" type="video/mp4">
+                    </video>
+                    <p class="image-caption"> <strong>Text Prompt:</strong> A man in a white t-shirt lifts a large box from the ground near a delivery truck on a narrow street.</p>
+                
+                    <video class="results_video" autoplay muted loop playsinline>
+                        <source src="videos/teaser_010.mp4" type="video/mp4">
+                    </video>
+                    <p class="image-caption"> <strong>Text Prompt:</strong> The man in a blue shirt feeds a strawberry to the woman in a white chef coat.</p>
+                
+                </div>
+                
+                <!-- <div class="slideshow-container">
                     <div class="slideshow" data-range="000-011" data-dir="videos" data-ext="mp4"></div>
                     <button class="slideshow-nav prev" aria-label="Previous slide" title="Previous">&#10094;</button>
                     <button class="slideshow-nav next" aria-label="Next slide" title="Next">&#10095;</button>
                     <button class="play-pause" aria-label="Pause autoplay" title="Pause autoplay">
                         <i class="fa fa-pause"></i>
                       </button>
-                </div>
+                </div> -->
                 
             </section>
             <!-- Contents: Overview -->
@@ -325,18 +342,18 @@
                 </div>
             </section>
 
-            <section id="quan" class="section">
-                <!-- <h2>Results</h2>
+            <section id="results" class="section">
+                <h2>Results</h2>
                 <h3>Qualitative Comparisons</h3>
                 <div class="slideshow-container">
-                    <div class="slideshow" data-range="000-011" data-dir="videos" data-ext="mp4"></div>
+                    <div class="slideshow" data-range="001-009" data-dir="videos" data-ext="mp4"></div>
                     <button class="slideshow-nav prev" aria-label="Previous slide" title="Previous">&#10094;</button>
                     <button class="slideshow-nav next" aria-label="Next slide" title="Next">&#10095;</button>
                     <button class="play-pause" aria-label="Pause autoplay" title="Pause autoplay">
                         <i class="fa fa-pause"></i>
                       </button>
-                </div> -->
-                <h2>Results</h2>
+                </div>
+                <!-- <h2>Results</h2> -->
                 <h3>Quantitative Comparisons</h3>     
                 <div class="table-container">
                     <div class="table-wrap">
@@ -507,7 +524,6 @@
     }
     const captions = {
         "000": "At a kitchen counter, a student in a white shirt places a notebook on a wooden table. Cups and plates are scattered nearby, and sunlight comes in through the window. The action demonstrates placing the notebook on the flat surface.",
-        "001": "A man in a white t-shirt lifts a large box from the ground near a delivery truck on a narrow street.",
         "002": "A woman in a red coat pushes a stroller along a park path with fallen leaves scattered around. Nearby, a child in a green hoodie jumps with excitement on the grassy field.",
         "003": "Two boys are pushing each other playfully on a grassy field, while a dog wearing a blue harness is running in circles nearby.",
         "004": "A girl in a yellow raincoat is patting another girl's shoulder in front of a school gate, while a boy behind them is skipping along the sidewalk.",
@@ -517,7 +533,7 @@
         "008": "The man in a pink suit picks up the red Coca-Cola can and takes a sip from it.",
         "009": "The man with a sushi t-shirt puts the bitten donut into his mouth to eat it.",
         "010": "The man in a blue shirt feeds a strawberry to the woman in a white chef coat.",
-        "011": "The woman in a white dress cuts the wedding cake with a knife she's holding."
+        "001": "The woman in a white dress cuts the wedding cake with a knife she's holding."
     };
 
     document.querySelectorAll('.slideshow[data-range]').forEach(slideshow => {
