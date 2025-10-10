@@ -5,7 +5,7 @@
 
 This is the official implmentation of the paper *"MATRIX: Mask Track Alignment for Interaction-aware Video Generation"*
 
-by [Siyoon Jin](https://JinSY515.github.io/my-page/), [Seongchan Kim](https://deep-overflow.github.io/), Dahyun Chung, Jaeho Lee, Hyunwook Choi, [Jisu Nam](https://nam-jisu.github.io), [Jiyoung Kim](https://scholar.google.com/citations?user=DqG-ybIAAAAJ&hl=ko) and [Seungryong Kim](https://cvlab.kaist.ac.kr/members/faculty)
+by [Siyoon Jin](https://JinSY515.github.io/my-page/), [Seongchan Kim](https://deep-overflow.github.io/), [Dahyun Chung](https://scholar.google.com/citations?user=EU52riMAAAAJ&hl=ko), [Jaeho Lee](https://scholar.google.com/citations?user=rfDpohEAAAAJ&hl=ko), [Hyunwook Choi](https://scholar.google.com/citations?user=vqSp0lwAAAAJ&hl=ko), [Jisu Nam](https://nam-jisu.github.io), [Jiyoung Kim](https://scholar.google.com/citations?user=DqG-ybIAAAAJ&hl=ko) and [Seungryong Kim](https://cvlab.kaist.ac.kr/members/faculty)
 
 ## Introduction 
 ![](images/fig_teaser.png)<br>
