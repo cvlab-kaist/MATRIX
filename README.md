@@ -10,17 +10,17 @@ by [Siyoon Jin](https://JinSY515.github.io/my-page/), [Seongchan Kim](https://de
 # Introduction 
 ![](images/fig_teaser.png)<br>
 
-### How do Video Diffusion Transformers semantically bind text and video, and how is this binding propagated to support interactions? 
+### 🤔 How do Video Diffusion Transformers semantically bind text and video, and how is this binding propagated to support interactions? 
 
 MATRIX identifies interaction-dominant layers in video DiTs and introduces a simple yet effective regularization that aligns their attention to multi-instance mask tracks, resulting in more interaction-aware video generation.
 
 MATRIX introduces :
 
-**Novel Analysis** specifically designed to quantify semantic grounding and propagation 
+- 🔎  **Novel Analysis** specifically designed to quantify semantic grounding and propagation 
 
-**Simple yet Effective Loss Design** that aligns the attention in interaction-dominant layers with multi-instance mask tracks 
+- 🚀 **Simple yet Effective Loss Design** that aligns the attention in interaction-dominant layers with multi-instance mask tracks 
 
-**Novel InterGenEval Metrics** designed to evaluate interaction-awareness of the generated video.
+- 🏅 **Novel InterGenEval Metrics** designed to evaluate interaction-awareness of the generated video.
 
 # Installation 
 ```
