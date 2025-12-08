@@ -7,19 +7,61 @@ This is the official implmentation of the paper *"MATRIX: Mask Track Alignment f
 
 by [Siyoon Jin](https://JinSY515.github.io/my-page/), [Seongchan Kim](https://deep-overflow.github.io/), [Dahyun Chung](https://scholar.google.com/citations?user=EU52riMAAAAJ&hl=ko), [Jaeho Lee](https://scholar.google.com/citations?user=rfDpohEAAAAJ&hl=ko), [Hyunwook Choi](https://scholar.google.com/citations?user=vqSp0lwAAAAJ&hl=ko), [Jisu Nam](https://nam-jisu.github.io), [Jiyoung Kim](https://scholar.google.com/citations?user=DqG-ybIAAAAJ&hl=ko) and [Seungryong Kim](https://cvlab.kaist.ac.kr/members/faculty)
 
-## Introduction 
+# Introduction 
 ![](images/fig_teaser.png)<br>
+
+### How do Video Diffusion Transformers semantically bind text and video, and how is this binding propagated to support interactions? 
+
 MATRIX identifies interaction-dominant layers in video DiTs and introduces a simple yet effective regularization that aligns their attention to multi-instance mask tracks, resulting in more interaction-aware video generation.
 
-## MATRIX
+MATRIX introduces :
 
+**Novel Analysis** specifically designed to quantify semantic grounding and propagation 
+
+**Simple yet Effective Loss Design** that aligns the attention in interaction-dominant layers with multi-instance mask tracks 
+
+**Novel InterGenEval Metrics** designed to evaluate interaction-awareness of the generated video.
+
+# Installation 
+```
+git clone https://github.com/cvlab-kaist/MATRIX.git 
+cd MATRIX
+
+conda create -n matrix python=3.11 -y
+conda activate matrix
+pip install -r requirements.txt 
+
+cd diffusers
+pip install -e .
+```
+
+# Semantic Grounding & Propagation Analysis 
+## Analysis on Generated Videos
+For video DiT backbone models, including CogVideoX-2B-I2V, CogVideoX-5B-I2V, HunyuanVideo-I2V, Wan2.1-14B-I2V, we provide analysis framework. 
+Additional details and settings are available in ``ATTN_ANALYSIS`` directory
+```
+bash analyze_attention.sh 
+```
+**Options**
+- ``--model`` : video backbone model, choices = ['cogvideox_i2v_2b', 'cogvideox_i2v_5b', 'wan-i2v', 'hunyuan-i2v']
+- ``--height`` : height of the generated video (e.g., 480, must be multiple of 16) 
+- ``--width`` : width of the generated video (e.g., 720, must be multiple of 16)
+- ``--text_len`` : length of the text embedding (e.g., 226 for CogVideoX)
+- ``--num_frames`` : number of frames (e.g., 49)
+- ``--output_dir`` : output directory to save generated videos 
+- ``--data_dir`` : directory of RGB frames 
+- ``--masks_dir`` : directory of mask frames 
+- ``--prompt_path`` : path to prompt json file 
+
+# MATRIX
+ 
 Code and weights will be released soon! 
 
-## InterGenEval
+# InterGenEval
 
 Code for InterGenEval will be released soon!
 
-## Citation
+# Citation
 If you find this research useful, please consider citing:
 ```
 @misc{jin2025matrixmasktrackalignment,
