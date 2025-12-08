@@ -189,20 +189,17 @@
                     <video class="results_video" autoplay muted loop playsinline>
                         <source src="wan_videos/teaser_000.mp4" type="video/mp4">
                     </video>
-                    <!-- <p class="image-caption"> <strong>Text Prompt:</strong> At a kitchen counter, a student in a white shirt places a notebook on a wooden table. Cups and plates are scattered nearby, and sunlight comes in through the window. The action demonstrates placing the notebook on the flat surface.</p> -->
                     <p class="image-caption"> <strong>Text Prompt:</strong> At the front door of a house, a girl in a yellow dress stands outside near a wooden door. She lifts her hand and taps the metal door knocker lightly, producing a clear sound.</p>
                 
                     <video class="results_video" autoplay muted loop playsinline>
                         <source src="wan_videos/teaser_001.mp4" type="video/mp4">
                     </video>
-                    <!-- <p class="image-caption"> <strong>Text Prompt:</strong> A man in a white t-shirt lifts a large box from the ground near a delivery truck on a narrow street.</p> -->
-                    <p class="image-caption"> <strong>Text Prompt:</strong> A man walking paset with yellow towel wipes the front panel or windshield of the red SUV.</p>
+                    <p class="image-caption"> <strong>Text Prompt:</strong> A man walking past with yellow towel wipes the front panel or windshield of the red SUV.</p>
                 
                     <video class="results_video" autoplay muted loop playsinline>
                         <source src="wan_videos/teaser_002.mp4" type="video/mp4">
                     </video>
-                    <!-- <p class="image-caption"> <strong>Text Prompt:</strong> The man in a blue shirt feeds a strawberry to the woman in a white chef coat.</p> -->
-                    <p class="image-caption"> <strong>Text Prompt:</strong> The man on the ramp pushes the piece of furniture toward the truck while the man inside the truck pulls it inward.</p>
+                    <p class="image-caption"> <strong>Text Prompt:</strong> The man lands on the skateboard and performs a jump.</p>
                 
                 </div>
                 
@@ -347,9 +344,19 @@
 
             <section id="results" class="section">
                 <h2>Results</h2>
-                <h3>Qualitative Comparisons</h3>
+                <h3>Qualitative Comparisons <b>(CogVideoX-5B-I2V)</b></h3>
                 <div class="slideshow-container">
-                    <div class="slideshow" data-range="001-009" data-dir="videos" data-ext="mp4"></div>
+                    <div class="slideshow" data-range="000-011" data-dir="videos" data-ext="mp4"></div>
+                    <button class="slideshow-nav prev" aria-label="Previous slide" title="Previous">&#10094;</button>
+                    <button class="slideshow-nav next" aria-label="Next slide" title="Next">&#10095;</button>
+                    <button class="play-pause" aria-label="Pause autoplay" title="Pause autoplay">
+                        <i class="fa fa-pause"></i>
+                      </button>
+                </div>
+
+                <h3>Qualitative Comparisons <b>(Wan-14B-I2V)</b></h3>
+                <div class="slideshow-container">
+                    <div class="slideshow" data-range="012-018" data-dir="wan_videos" data-ext="mp4"></div>
                     <button class="slideshow-nav prev" aria-label="Previous slide" title="Previous">&#10094;</button>
                     <button class="slideshow-nav next" aria-label="Next slide" title="Next">&#10095;</button>
                     <button class="play-pause" aria-label="Pause autoplay" title="Pause autoplay">
@@ -497,15 +504,15 @@
                 <h1 id="citation">Citation</h1>
                 <p> If you use this work or find it helpful, please consider citing: </p>
                 <pre id="codecell0">
-@misc{jin2025matrixmasktrackalignment,
-title={MATRIX: Mask Track Alignment for Interaction-aware Video Generation}, 
-author={Siyoon Jin and Seongchan Kim and Dahyun Chung and Jaeho Lee and Hyunwook Choi and Jisu Nam and Jiyoung Kim and Seungryong Kim},
-year={2025},
-eprint={2510.07310},
-archivePrefix={arXiv},
-primaryClass={cs.CV},
-url={https://arxiv.org/abs/2510.07310}, 
-}
+                    @misc{jin2025matrixmasktrackalignment,
+                    title={MATRIX: Mask Track Alignment for Interaction-aware Video Generation}, 
+                    author={Siyoon Jin and Seongchan Kim and Dahyun Chung and Jaeho Lee and Hyunwook Choi and Jisu Nam and Jiyoung Kim and Seungryong Kim},
+                    year={2025},
+                    eprint={2510.07310},
+                    archivePrefix={arXiv},
+                    primaryClass={cs.CV},
+                    url={https://arxiv.org/abs/2510.07310}, 
+                    }
                 </pre>
             </div>
         </div>
@@ -535,18 +542,27 @@ url={https://arxiv.org/abs/2510.07310},
     }
     const captions = {
         "000": "At a kitchen counter, a student in a white shirt places a notebook on a wooden table. Cups and plates are scattered nearby, and sunlight comes in through the window. The action demonstrates placing the notebook on the flat surface.",
-        "002": "A woman in a red coat pushes a stroller along a park path with fallen leaves scattered around. Nearby, a child in a green hoodie jumps with excitement on the grassy field.",
+        "001": "The woman in a white dress cuts the wedding cake with a knife she's holding.",
+        "002": "The man in a blue shirt feeds a strawberry to the woman in a white chef coat.",
         "003": "Two boys are pushing each other playfully on a grassy field, while a dog wearing a blue harness is running in circles nearby.",
-        "004": "A girl in a yellow raincoat is patting another girl's shoulder in front of a school gate, while a boy behind them is skipping along the sidewalk.",
+        "004": "A man in a white t-shirt lifts a large box from the ground near a delivery truck on a narrow street.",
         "005": "A girl pushes another girl on a tire swing at a park, while a man in the background is shaking hands with a boy near the picnic tables.",
         "006": "A man walking past with yellow towel wipes the front panel or windshield of the red SUV.",
         "007": "The woman in the wide-brimmed hat raises her silver travel mug to take a sip.",
         "008": "The man in a pink suit picks up the red Coca-Cola can and takes a sip from it.",
-        "009": "The man with a sushi t-shirt puts the bitten donut into his mouth to eat it.",
-        "010": "The man in a blue shirt feeds a strawberry to the woman in a white chef coat.",
-        "001": "The woman in a white dress cuts the wedding cake with a knife she's holding."
-    };
+        "009": "A girl in a yellow raincoat is patting another girl's shoulder in front of a school gate, while a boy behind them is skipping along the sidewalk.",
+        "010": "A woman in a red coat pushes a stroller along a park path with fallen leaves scattered around. Nearby, a child in a green hoodie jumps with excitement on the grassy field.",
+        "011": "The man with a sushi t-shirt puts the bitten donut into his mouth to eat it.",
 
+        "012": "The player in the white jersey hits the black hockey puck using the stick while being closely defended by the opponent in the orange jersey.",
+        "013": "The man on the ramp pushes the piece of furniture toward the truck while the man inside the truck pulls it inward.",
+        "014": "The man in a yellow jacket pulls the reins attached to the horse's bridle to steer it forward as the horse gallops down the road.",
+        "015": "The woman in a pink polka dot dress uses a spatula to place a pancake onto the plate she is holding.",
+        "016": "The man wearing a black t-shirt and shorts gets on the bike and starts riding forward.",
+        "017": "The boy lifts the sandwich and begins to eat, chewing thoughtfully.",
+        "018": "The boy is leading the calf by the rope, guiding it carefully as the calf follows his lead.",  
+        
+    };
     document.querySelectorAll('.slideshow[data-range]').forEach(slideshow => {
     const [startStr, endStr] = slideshow.dataset.range.split('-').map(s => s.trim());
     const pad = Math.max(startStr.length, endStr.length);
