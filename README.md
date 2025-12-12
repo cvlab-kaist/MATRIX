@@ -59,7 +59,7 @@ Code and weights will be released soon!
 
 # InterGenEval
 
-Refer to [InterGenEval](InterGenEval/README.md)
+For detailed usage and examples, please refer to [InterGenEval](InterGenEval/README.md)
 
 # Citation
 If you find this research useful, please consider citing:
