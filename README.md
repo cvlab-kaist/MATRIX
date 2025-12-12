@@ -59,7 +59,7 @@ Code and weights will be released soon!
 
 # InterGenEval
 
-Code for InterGenEval will be released soon!
+Refer to [InterGenEval](InterGenEval/README.md)
 
 # Citation
 If you find this research useful, please consider citing:
