@@ -200,6 +200,11 @@
                         <source src="wan_videos/teaser_002.mp4" type="video/mp4">
                     </video>
                     <p class="image-caption"> <strong>Text Prompt:</strong> The man lands on the skateboard and performs a jump.</p>
+                    
+                    <video class="results_video" autoplay muted loop playsinline>
+                        <source src="wan_videos/teaser_003.mp4" type="video/mp4">
+                    </video>
+                    <p class="image-caption"> <strong>Text Prompt:</strong> The robotic arm with black joints moves a red apple from a tray to a small metal bowl.</p>
                 
                 </div>
                 
@@ -356,7 +361,7 @@
 
                 <h3>Qualitative Comparisons <b>(Wan2.1-14B-I2V baseline)</b></h3>
                 <div class="slideshow-container">
-                    <div class="slideshow" data-range="012-018" data-dir="wan_videos" data-ext="mp4"></div>
+                    <div class="slideshow" data-range="012-019" data-dir="wan_videos" data-ext="mp4"></div>
                     <button class="slideshow-nav prev" aria-label="Previous slide" title="Previous">&#10094;</button>
                     <button class="slideshow-nav next" aria-label="Next slide" title="Next">&#10095;</button>
                     <button class="play-pause" aria-label="Pause autoplay" title="Pause autoplay">
@@ -561,7 +566,7 @@ url={https://arxiv.org/abs/2510.07310},
         "016": "The man wearing a black t-shirt and shorts gets on the bike and starts riding forward.",
         "017": "The boy lifts the sandwich and begins to eat, chewing thoughtfully.",
         "018": "The boy is leading the calf by the rope, guiding it carefully as the calf follows his lead.",  
-        
+        "019": "The robotic arm with a yellow casing lifts a green plastic bottle from the wooden table.",
     };
     document.querySelectorAll('.slideshow[data-range]').forEach(slideshow => {
     const [startStr, endStr] = slideshow.dataset.range.split('-').map(s => s.trim());
