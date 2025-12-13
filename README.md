@@ -95,6 +95,8 @@ video,prompt
 For detailed preparation, please refer to [DATA_PREPARATION](DATA_PREPARATION/README.md)
 
 ### 🔥 Training
+This codebase is built upon DiffSynth-Studio.
+
 Below is an example command to launch training.
 Adjust paths, GPU index, and hyperparameters for your environment:
 ```bash
