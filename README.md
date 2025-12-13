@@ -16,24 +16,13 @@ MATRIX identifies interaction-dominant layers in video DiTs and introduces a sim
 
 MATRIX introduces :
 
-- 🔎  **Novel Analysis** specifically designed to quantify semantic grounding and propagation 
+🔎  **Novel Analysis** specifically designed to quantify semantic grounding and propagation 
 
-- 🚀 **Simple yet Effective Loss Design** that aligns the attention in interaction-dominant layers with multi-instance mask tracks 
+🚀 **Simple yet Effective Loss Design** that aligns the attention in interaction-dominant layers with multi-instance mask tracks 
 
-- 🏅 **Novel InterGenEval Metrics** designed to evaluate interaction-awareness of the generated video.
+🏅 **Novel InterGenEval Metrics** designed to evaluate interaction-awareness of the generated video.
 
-# Installation 
-```
-git clone https://github.com/cvlab-kaist/MATRIX.git 
-cd MATRIX
 
-conda create -n matrix python=3.11 -y
-conda activate matrix
-pip install -r requirements.txt 
-
-cd diffusers
-pip install -e .
-```
 
 # Semantic Grounding & Propagation Analysis 
 ## Analysis on Generated Videos
@@ -55,8 +44,85 @@ bash analyze_attention.sh
 
 # MATRIX
  
-Code and weights will be released soon! 
+## 🔧 Installation 
+```
+git clone https://github.com/cvlab-kaist/MATRIX.git 
+cd MATRIX
 
+conda create -n matrix python=3.11 -y
+conda activate matrix
+pip install -r requirements.txt 
+
+cd diffsynth
+pip install -e .
+```
+
+## 📹 Dataset Preparation
+The code assumes a dataset structure like:
+
+```text
+DATA_ROOT/
+  videos/
+    000001.mp4
+    000002.mp4
+    ...
+  mask_annotation/
+    000001/
+      <id1>/
+        000.png
+        001.png
+        ...
+      <id2>/
+        ...
+      <id3>/
+      <id4>/
+      <id5>/
+      merged/
+    000002/
+      <id1>/
+      ...
+  metadata.csv   (or .json / .jsonl)
+```
+- `videos/` contains the input videos used for training.
+- Each row in `metadata.csv` references a video file via the `video` field, e.g.,:
+```text
+video,prompt
+000001.mp4,"a <id1> person passes a ball to another <id2> person"
+```
+- Each id masks should be paired with the corresponding ids. 
+- `merged` stores color-coded union masks that aggregate all IDs (id1–id5) into a single mask image. Each ID is assigned a fixed, unique color (e.g., all pixels belonging to id1 share the same color, all id2 pixels share another color, etc.), so instance regions are distinguishable in one palette image.
+
+For detailed preparation, please refer to [DATA_PREPARATION](DATA_PREPARATION/README.md)
+
+### 🔥 Training
+Below is an example command to launch training.
+Adjust paths, GPU index, and hyperparameters for your environment:
+```bash
+bash matrix/train/train.sh
+```
+- `--dataset_base_path`
+Root folder that contains final_videos_16fps/.
+
+- `--dataset_metadata_path`
+Path to metadata.csv (or .json, .jsonl) describing the training samples.
+
+- `--height, --width`
+Target spatial resolution. Must be compatible with the base Wan2.1 I2V model (e.g., 480×832).
+
+- `--output_path`
+Where fine-tuned LoRA checkpoints and logs will be written.
+
+- `--trainable_models`
+Which submodules to train (e.g., dit, dit.patch_embedding, seg_head).
+
+- `--v2t_layers, --v2v_layers`
+DiT block indices where interaction-aware supervision is applied:
+
+  - `v2t` = video-to-text (semantic grounding alignment)
+
+  - `v2v` = video-to-video (temporal/propagation alignment)
+
+- `--sga, --spa` Flags to enable: SGA (Semantic Grounding Alignment),  SPA (Semantic Propagation Alignment)
 # InterGenEval
 
 For detailed usage and examples, please refer to [InterGenEval](InterGenEval/README.md)
