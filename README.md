@@ -1,4 +1,4 @@
-# MATRIX: Mask Track Alignment for Interaction-aware Video Generation
+# [ICLR 2026] MATRIX: Mask Track Alignment for Interaction-aware Video Generation
 <a href="https://arxiv.org/pdf/2510.07310"><img src="https://img.shields.io/badge/arXiv-2510.07310-%23B31B1B"></a>
 <a href="https://cvlab-kaist.github.io/MATRIX"><img src="https://img.shields.io/badge/Project%20Page-online-brightgreen"></a>  
 <br>
